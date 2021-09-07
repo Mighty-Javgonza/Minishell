@@ -6,7 +6,7 @@
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 11:05:49 by javgonza          #+#    #+#             */
-/*   Updated: 2021/09/07 13:52:23 by javgonza         ###   ########.fr       */
+/*   Updated: 2021/09/07 15:43:42 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,9 @@
 
 typedef struct s_env_variable
 {
-	char	*name;
-	char	*value;
+	char			*name;
+	char			*value;
+	unsigned int	is_local : 1;
 }				t_env_variable;
 
 typedef struct s_minishell_data
@@ -50,7 +51,7 @@ typedef struct s_minishell_data
 	t_env_variable	securitysessionid;
 	t_env_variable	colorterm;
 	t_env_variable	_;
-	size_t	default_env_var_count;
+	size_t			default_env_var_count;
 	t_env_variable	*extra_variables;
 	size_t			extra_variables_size;
 }				t_minishell_data;
@@ -77,4 +78,13 @@ void	load_extra_variable(char *new_var);
 void	print_env_vars();
 
 void	free_env_var_list(t_env_variable *old_vars);
+
+t_env_variable	*find_env_var(char *name);
+
+t_env_variable	*set_variable(char *name, char *value);
+
+t_env_variable	*find_default_var(char *name);
+t_env_variable	*find_extra_var(char *name);
+
+void	export_var(char *name);
 #endif

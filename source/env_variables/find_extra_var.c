@@ -1,43 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_env_vars.c                                   :+:      :+:    :+:   */
+/*   find_extra_var.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/07 13:33:48 by javgonza          #+#    #+#             */
-/*   Updated: 2021/09/07 15:48:19 by javgonza         ###   ########.fr       */
+/*   Created: 2021/09/07 15:26:09 by javgonza          #+#    #+#             */
+/*   Updated: 2021/09/07 15:26:50 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env_variables.h"
+#include "../utils/utils.h"
 
-static void	print_one_var(t_env_variable var)
+t_env_variable	*find_extra_var(char *name)
 {
-	if (var.is_local)
-		return ;
-	printf("%s", var.name);
-	printf("=");
-	printf("%s\n", var.value);
-}
-
-void	print_env_vars()
-{
+	t_env_variable	*list;
 	size_t			i;
-	t_env_variable	*casted_env_vars;
 
-	casted_env_vars = (t_env_variable *)&g_minishell_data;
-	i = 0;
-	while (i < g_minishell_data.default_env_var_count)
-	{
-		if (casted_env_vars[i].name != NULL)
-			print_one_var(casted_env_vars[i]);
-		i++;
-	}
+	list = g_minishell_data.extra_variables;
 	i = 0;
 	while (i < g_minishell_data.extra_variables_size)
 	{
-		print_one_var(g_minishell_data.extra_variables[i]);
+		if (streq(list[i].name, name))
+			return (&list[i]);
 		i++;
-	}	
+	}
+	return (NULL);
 }

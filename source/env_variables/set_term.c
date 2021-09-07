@@ -6,7 +6,7 @@
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 12:25:54 by javgonza          #+#    #+#             */
-/*   Updated: 2021/09/07 13:47:11 by javgonza         ###   ########.fr       */
+/*   Updated: 2021/09/07 15:45:49 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,5 +19,6 @@ void	set_term(char *name, char *value)
 	{
 		g_minishell_data.term.value = ft_strdup(value);
 		g_minishell_data.term.name = ft_strdup("TERM");
+		g_minishell_data.term.is_local = 0;
 	}
 }

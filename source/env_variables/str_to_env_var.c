@@ -6,7 +6,7 @@
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 13:18:44 by javgonza          #+#    #+#             */
-/*   Updated: 2021/09/07 14:10:50 by javgonza         ###   ########.fr       */
+/*   Updated: 2021/09/07 15:47:09 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ t_env_variable	str_to_env_var(char *var)
 	}
 	env_var.name = split[0];
 	env_var.value = split[1];
+	env_var.is_local = 1;
 	free(split);
 	return (env_var);
 }

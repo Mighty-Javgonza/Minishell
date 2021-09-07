@@ -1,31 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   zz_temp_test.c                                     :+:      :+:    :+:   */
+/*   export_var.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/07 11:05:49 by javgonza          #+#    #+#             */
-/*   Updated: 2021/09/07 15:52:07 by javgonza         ###   ########.fr       */
+/*   Created: 2021/09/07 15:48:59 by javgonza          #+#    #+#             */
+/*   Updated: 2021/09/07 15:51:33 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../tests.h"
+#include "env_variables.h"
 
-int main(int argc, char **argv, char **env)
+void	export_var(char *name)
 {
-	t_env_variable	*var;
+	t_env_variable	*search;
 
-	(void)argc;
-	(void)argv;
-	(void)env;
-	init_minishell_data();
-	copy_env_variables(env);
-	load_env_variable("CUSTOM=1");
-	load_env_variable("CUSTOM=3");
-	export_var("CUSTOM");
-	var = find_env_var("CUSTOM");
-	if (var->is_local != 0)
-		return (-1);
-	return (0);
+	search = find_env_var(name);
+	if (search == NULL)
+		return ;
+	search->is_local = 0;
 }
