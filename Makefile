@@ -20,7 +20,7 @@ PROJECT_ADVISOR = "Bonsai	|"
 ECHO = echo $(PROJECT_ADVISOR)
 
 #Delete this if libft is not going to be used
-LIBFT = libft/libftprintf.a
+LIBFT = libft/libft.a
 
 CC = gcc -g
 COMP_FLAGS = -Wall -Wextra -Werror
@@ -34,7 +34,7 @@ $(BUILD_PREF)%.o:$(SOURCE_PREF)%.c
 
 $(TEST_PREF)%.test:$(TEST_PREF)%.c
 	@$(ECHO) Building $<
-	@$(COMPILER) -o $@ $< $(OBJ_FILES)
+	@$(COMPILER) -o $@ $< $(OBJ_FILES) $(LIBFT)
 
 %:
 	@$(ECHO) Creating Directory $@
@@ -47,10 +47,10 @@ dirs: $(BUILD_DIRS)
 
 $(NAME): $(LIBFT) $(OBJ_FILES) assemble_tests
 	@$(ECHO) Compiling main
-	@$(COMPILER) $(MAIN) -o $(NAME) $(OBJ_FILES)
+	@$(COMPILER) $(MAIN) -o $(NAME) $(OBJ_FILES) $(LIBFT)
 	@$(ECHO) Compilation Succesful
 
-libft:
+$(LIBFT):
 	cd libft && make
 
 clean:

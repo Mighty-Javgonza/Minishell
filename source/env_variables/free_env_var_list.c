@@ -1,22 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   free_env_var_list.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/25 09:14:49 by javgonza          #+#    #+#             */
-/*   Updated: 2021/09/07 12:12:47 by javgonza         ###   ########.fr       */
+/*   Created: 2021/09/07 14:00:23 by javgonza          #+#    #+#             */
+/*   Updated: 2021/09/07 14:08:33 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "source/all_headers.h"
-#include <stdio.h>
+#include "env_variables.h"
 
-int	main(int argc, char **argv, char **env)
+void	free_env_var_list(t_env_variable *old_vars)
 {
-	(void)argc;
-	(void)argv;
-	(void)env;
-	return (0);
+	size_t	i;
+
+	i = 0;
+	while (old_vars[i].name != NULL)
+	{
+		free(old_vars[i].name);
+		free(old_vars[i].value);
+		i++;
+	}
+	free(old_vars);
 }

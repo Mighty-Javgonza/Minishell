@@ -1,22 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/25 09:14:49 by javgonza          #+#    #+#             */
-/*   Updated: 2021/09/07 12:12:47 by javgonza         ###   ########.fr       */
+/*   Created: 2021/09/07 11:40:47 by javgonza          #+#    #+#             */
+/*   Updated: 2021/09/07 12:19:16 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "source/all_headers.h"
-#include <stdio.h>
+#ifndef UTILS_H
+# define UTILS_H
 
-int	main(int argc, char **argv, char **env)
-{
-	(void)argc;
-	(void)argv;
-	(void)env;
-	return (0);
-}
+int	streq(char *a, char *b);
+#endif

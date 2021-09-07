@@ -1,22 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   streq.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/25 09:14:49 by javgonza          #+#    #+#             */
-/*   Updated: 2021/09/07 12:12:47 by javgonza         ###   ########.fr       */
+/*   Created: 2021/09/07 11:41:51 by javgonza          #+#    #+#             */
+/*   Updated: 2021/09/07 12:52:24 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "source/all_headers.h"
-#include <stdio.h>
+#include "utils.h"
+#include <stdlib.h>
+#include "../../libft/incs/libft.h"
 
-int	main(int argc, char **argv, char **env)
+int	streq(char *a, char *b)
 {
-	(void)argc;
-	(void)argv;
-	(void)env;
-	return (0);
+	size_t	len_a;
+	size_t	len_b;
+
+	if (a == b)
+		return (1);
+	if (a == NULL || b == NULL)
+		return (0);
+	len_a = ft_strlen(a);
+	len_b = ft_strlen(b);
+	if (len_a != len_b)
+		return (0);
+	return (ft_strncmp(a, b, len_a) == 0);
 }

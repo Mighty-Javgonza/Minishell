@@ -1,22 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   get_term_program.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/25 09:14:49 by javgonza          #+#    #+#             */
-/*   Updated: 2021/09/07 12:12:47 by javgonza         ###   ########.fr       */
+/*   Created: 2021/09/07 12:25:54 by javgonza          #+#    #+#             */
+/*   Updated: 2021/09/07 13:49:00 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "source/all_headers.h"
-#include <stdio.h>
+#include "env_variables.h"
+#include "../utils/utils.h"
 
-int	main(int argc, char **argv, char **env)
+void	set_shell(char *name, char *value)
 {
-	(void)argc;
-	(void)argv;
-	(void)env;
-	return (0);
+ 	if (streq(name, "SHELL"))
+	{
+		g_minishell_data.shell.name = ft_strdup("SHELL");
+		g_minishell_data.shell.value = ft_strdup(value);
+	}
 }
