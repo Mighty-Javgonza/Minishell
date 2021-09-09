@@ -1,23 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   set_variable.c                                     :+:      :+:    :+:   */
+/*   command_executor.h                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/07 15:15:25 by javgonza          #+#    #+#             */
-/*   Updated: 2021/09/09 12:34:09 by javgonza         ###   ########.fr       */
+/*   Created: 2021/09/09 10:49:02 by javgonza          #+#    #+#             */
+/*   Updated: 2021/09/09 10:49:02 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env_variables.h"
+#ifndef COMMAND_EXECUTOR_H
+# define COMMAND_EXECUTOR_H
 
-t_env_variable	*set_variable(char *name, char *value)
-{
-	t_env_variable	*found_var;
-
-	found_var = find_env_var(name);
-	free(found_var->value);
-	found_var->value = ft_strdup(value);
-	return (found_var);
-}
+#endif 

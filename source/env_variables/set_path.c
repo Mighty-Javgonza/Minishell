@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   set_variable.c                                     :+:      :+:    :+:   */
+/*   get_term_program.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/07 15:15:25 by javgonza          #+#    #+#             */
-/*   Updated: 2021/09/09 12:34:09 by javgonza         ###   ########.fr       */
+/*   Created: 2021/09/07 12:25:54 by javgonza          #+#    #+#             */
+/*   Updated: 2021/09/09 12:59:36 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env_variables.h"
+#include "../utils/utils.h"
 
-t_env_variable	*set_variable(char *name, char *value)
+void	set_path(char *name, char *value)
 {
-	t_env_variable	*found_var;
-
-	found_var = find_env_var(name);
-	free(found_var->value);
-	found_var->value = ft_strdup(value);
-	return (found_var);
+ 	if (streq(name, "PATH"))
+	{
+		g_minishell_data.path.name = ft_strdup("PATH");
+		g_minishell_data.path.value = ft_strdup(value);
+	}
 }

@@ -23,7 +23,7 @@ ECHO = echo $(PROJECT_ADVISOR)
 LIBFT = libft/libft.a
 
 CC = gcc -g
-COMP_FLAGS = -Wall -Wextra -Werror
+COMP_FLAGS = -Wall -Wextra -Werror 
 COMPILER = $(CC) $(COMP_FLAGS)
 
 .PHONY: all clean fclean re dirs cleantests test_folder retest_folder update_tags assemble_tests
@@ -34,7 +34,7 @@ $(BUILD_PREF)%.o:$(SOURCE_PREF)%.c
 
 $(TEST_PREF)%.test:$(TEST_PREF)%.c
 	@$(ECHO) Building $<
-	@$(COMPILER) -o $@ $< $(OBJ_FILES) $(LIBFT)
+	@$(COMPILER) -o $@ $< $(OBJ_FILES) $(LIBFT) -lreadline
 
 %:
 	@$(ECHO) Creating Directory $@

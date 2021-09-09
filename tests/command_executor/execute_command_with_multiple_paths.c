@@ -1,23 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   set_variable.c                                     :+:      :+:    :+:   */
+/*   zz_temp_test.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/07 15:15:25 by javgonza          #+#    #+#             */
-/*   Updated: 2021/09/09 12:34:09 by javgonza         ###   ########.fr       */
+/*   Created: 2021/09/09 10:49:32 by javgonza          #+#    #+#             */
+/*   Updated: 2021/09/09 13:08:29 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env_variables.h"
+#include "../tests.h"
+#include <readline/readline.h>
 
-t_env_variable	*set_variable(char *name, char *value)
+int main()
 {
-	t_env_variable	*found_var;
+	char	*args[2];
+	int		res;
 
-	found_var = find_env_var(name);
-	free(found_var->value);
-	found_var->value = ft_strdup(value);
-	return (found_var);
+	init_minishell_data();
+	load_env_variable("PATH=path_invalido:./tests/test_programs/");
+	args[0] = "hello_world.out";
+	args[1] = NULL;
+	res = execute_command("hello_world.out", args);
+	if (res != 0)
+		return (-1);
+	return (0);
 }
