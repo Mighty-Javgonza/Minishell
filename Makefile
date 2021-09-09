@@ -47,7 +47,8 @@ dirs: $(BUILD_DIRS)
 
 $(NAME): $(LIBFT) $(OBJ_FILES) assemble_tests
 	@$(ECHO) Compiling main
-	@$(COMPILER) $(MAIN) -o $(NAME) $(OBJ_FILES) $(LIBFT)
+	@$(COMPILER) $(MAIN) -o $(NAME) $(OBJ_FILES) $(LIBFT) -lreadline
+
 	@$(ECHO) Compilation Succesful
 
 $(LIBFT):

@@ -6,7 +6,7 @@
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 11:07:54 by javgonza          #+#    #+#             */
-/*   Updated: 2021/09/09 13:07:53 by javgonza         ###   ########.fr       */
+/*   Updated: 2021/09/09 13:25:25 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 #include <stdlib.h>
 #include "../../libft/incs/libft.h"
 #include "../env_variables/env_variables.h"
+
+//TODO: Pass env vars
 
 int	execute_command(char *command, char **args)
 {
@@ -27,13 +29,18 @@ int	execute_command(char *command, char **args)
 	if (executed != 0)
 	{
 		path_split = ft_split(g_minishell_data.path.value, ':');
-		i = 0;
-		while (executed != 0 && path_split[i] != NULL)
+		if (path_split != NULL)
 		{
-			executed = try_to_execute_command_on_folder(path_split[i], command, args, NULL);
- printf("trying to execute path: %s\n", path_split[i]);
-			i++;
+			i = 0;
+			while (executed != 0 && path_split[i] != NULL)
+			{
+				executed = try_to_execute_command_on_folder(path_split[i], command, args, NULL);
+				i++;
+			}
+			ft_freearray(path_split);
 		}
 	}
+	if (executed != 0)
+		printf(MINISHELL_PROMPT"Comando falla\n");
 	return (executed);
 }

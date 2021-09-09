@@ -1,16 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   command_executor.h                                 :+:      :+:    :+:   */
+/*   zz_temp_test.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/09 10:49:02 by javgonza          #+#    #+#             */
-/*   Updated: 2021/09/09 10:49:02 by javgonza         ###   ########.fr       */
+/*   Created: 2021/09/09 10:49:32 by javgonza          #+#    #+#             */
+/*   Updated: 2021/09/09 13:17:54 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef COMMAND_EXECUTOR_H
-# define COMMAND_EXECUTOR_H
+#include "../tests.h"
+#include <readline/readline.h>
 
-#endif 
+int main()
+{
+	char	*args[2];
+	int		res;
+
+	init_minishell_data();
+	load_env_variable("PATH=hola");
+	args[0] = "hello_world.out";
+	args[1] = NULL;
+	res = execute_command("hello_world.out", args);
+	if (res == 0)
+		return (-1);
+	return (0);
+}
