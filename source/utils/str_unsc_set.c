@@ -1,29 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   zz_temp_test.c                                     :+:      :+:    :+:   */
+/*   strcharset.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/07 11:40:47 by javgonza          #+#    #+#             */
-/*   Updated: 2021/09/10 10:39:21 by javgonza         ###   ########.fr       */
+/*   Created: 2021/09/10 10:24:03 by javgonza          #+#    #+#             */
+/*   Updated: 2021/09/13 10:36:21 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../tests.h"
+#include "utils.h"
+#include <stdio.h>
+#include <stdlib.h>
 
-int main()
+char	*str_unsc_set(char *string, char *set)
 {
-	char	*string;
-	char	*start;
-	char	*end;
-	char	*result;
+	char	*search;
+	int		char_escape;
 
-	string = "Hola";
-	start = string;
-	end = string + 1;
-	result = str_in_ptrs(start, end);
-	if (!streq(result, "H"))
-		return (-1);
-	return (0);
+	if (string == NULL)
+		return (NULL);
+	search = string;
+	char_escape = 0;
+	while ((!is_charset(*search, set) || char_escape) && *search != '\0')
+	{
+		char_escape = *search == '\\' && !char_escape;
+		search++;
+	}
+	if (*search == '\0')
+		return (NULL);
+	return (search);
 }

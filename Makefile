@@ -14,6 +14,10 @@ TEST_DIRS = $(subst $(SOURCE_PREF), $(TEST_PREF), $(SOURCE_DIRS))
 TEST_FILES = $(foreach dir, $(TEST_DIRS), $(wildcard $(dir)/*.c))
 TEST_OBJS = $(TEST_FILES:.c=.test)
 
+RETEST_FOLDER =
+RETEST_FOLDER_FILES = $(foreach dir, $(RETEST_FOLDER), $(wildcard $(dir)/*.c))
+RETEST_FOLDER_OBJS = $(RETEST_FOLDER_FILES:.c=.test)
+
 MAIN=main.c
 
 PROJECT_ADVISOR = "Bonsai	|" 
@@ -45,7 +49,7 @@ all: dirs $(NAME)
 
 dirs: $(BUILD_DIRS)
 
-$(NAME): $(LIBFT) $(OBJ_FILES) assemble_tests
+$(NAME): $(LIBFT) $(OBJ_FILES)
 	@$(ECHO) Compiling main
 	@$(COMPILER) $(MAIN) -o $(NAME) $(OBJ_FILES) $(LIBFT) -lreadline
 
@@ -66,7 +70,7 @@ assemble_tests: $(TEST_OBJS)
 
 retest: cleantests assemble_tests
 	
-retest_folder: cleantests $(TEST_OBJS) 
+retest_folder: cleantests $(RETEST_FOLDER_OBJS) 
 
 test_folder: retest_folder
 	bash run_folder_tests.sh $(FOLDER_TEST)

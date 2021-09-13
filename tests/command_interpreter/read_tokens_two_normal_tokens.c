@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/07 11:40:47 by javgonza          #+#    #+#             */
-/*   Updated: 2021/09/10 10:39:21 by javgonza         ###   ########.fr       */
+/*   Created: 2021/09/10 09:54:33 by javgonza          #+#    #+#             */
+/*   Updated: 2021/09/10 13:13:32 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,10 @@
 
 int main()
 {
-	char	*string;
-	char	*start;
-	char	*end;
-	char	*result;
+	t_token_reader	tr;
 
-	string = "Hola";
-	start = string;
-	end = string + 1;
-	result = str_in_ptrs(start, end);
-	if (!streq(result, "H"))
+	tr = read_tokens("cat hola");
+	if (!streq(tr.tokens[1].value, "hola"))
 		return (-1);
 	return (0);
 }

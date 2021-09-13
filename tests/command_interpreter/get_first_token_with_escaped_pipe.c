@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/07 11:40:47 by javgonza          #+#    #+#             */
-/*   Updated: 2021/09/10 10:39:21 by javgonza         ###   ########.fr       */
+/*   Created: 2021/09/10 09:54:33 by javgonza          #+#    #+#             */
+/*   Updated: 2021/09/13 10:31:18 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,15 @@
 
 int main()
 {
+	t_token	token;
 	char	*string;
-	char	*start;
-	char	*end;
-	char	*result;
 
-	string = "Hola";
-	start = string;
-	end = string + 1;
-	result = str_in_ptrs(start, end);
-	if (!streq(result, "H"))
+	string = ft_strdup("\\|");
+	token = get_first_token_from_string(string);
+ printf("%s\n", string);
+ printf("%s\n", token.value);
+ printf("%d\n", token.type);
+	if (!streq(token.value, string))
 		return (-1);
 	return (0);
 }

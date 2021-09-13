@@ -6,7 +6,7 @@
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/25 09:14:49 by javgonza          #+#    #+#             */
-/*   Updated: 2021/09/09 13:54:24 by javgonza         ###   ########.fr       */
+/*   Updated: 2021/09/13 10:37:41 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,28 @@
 
 static void	read_command()
 {
-	char	*command;
-	char	*command_args[2];
+	size_t	i;
+	char			*command;
+	t_token_reader	tr;
+	char			**args;
 
 	command = readline("🐙 ->");
+	add_history(command);
+	tr = read_tokens(command);
+	args = malloc(sizeof(*args) * (tr.token_count + 1));
+	i = 0;
+	while (i < tr.token_count)
+	{
+		args[i] = tr.tokens[i].value;
+		i++;
+	}
+	args[i] = NULL;
 	if (command == NULL)
 	{
 		printf("\n");
 		exit(0);
 	}
-	command_args[0] = command;
-	command_args[1] = NULL;
-	execute_command(command, command_args);
+	execute_command(args[0], args);
 }
 
 static void	ctrl_c()

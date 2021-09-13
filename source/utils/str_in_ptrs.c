@@ -1,29 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   zz_temp_test.c                                     :+:      :+:    :+:   */
+/*   str_in_ptrs.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/07 11:40:47 by javgonza          #+#    #+#             */
-/*   Updated: 2021/09/10 10:39:21 by javgonza         ###   ########.fr       */
+/*   Created: 2021/09/10 10:37:05 by javgonza          #+#    #+#             */
+/*   Updated: 2021/09/13 10:07:53 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../tests.h"
+#include "utils.h"
+#include <stdlib.h>
+#include "../../libft/incs/libft.h"
 
-int main()
+char	*str_in_ptrs(char *start, char *end)
 {
-	char	*string;
-	char	*start;
-	char	*end;
-	char	*result;
+	size_t	length;
+	char	*new;
 
-	string = "Hola";
-	start = string;
-	end = string + 1;
-	result = str_in_ptrs(start, end);
-	if (!streq(result, "H"))
-		return (-1);
-	return (0);
+	length = end - start + 1;
+	new = malloc(sizeof(*new) * (length + 1));
+	ft_memmove(new, start, length);
+	new[length] = '\0';
+	return (new);
 }

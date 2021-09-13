@@ -14,4 +14,16 @@
 # define UTILS_H
 
 int	streq(char *a, char *b);
+
+int	is_charset(char c, char *set);
+
+char	*strcharset(char *string, char *set);
+
+char	*strcharset_n(char *string, char *set);
+
+char	*str_in_ptrs(char *start, char *end);
+
+char	*str_unsc_set_n(char *string, char *set);
+
+char	*str_unsc_set(char *string, char *set);
 #endif

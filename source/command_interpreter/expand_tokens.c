@@ -1,29 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   zz_temp_test.c                                     :+:      :+:    :+:   */
+/*   expand_tokens.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/07 11:40:47 by javgonza          #+#    #+#             */
-/*   Updated: 2021/09/10 10:39:21 by javgonza         ###   ########.fr       */
+/*   Created: 2021/09/10 13:44:02 by javgonza          #+#    #+#             */
+/*   Updated: 2021/09/10 13:53:54 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../tests.h"
+#include "command_interpreter.h"
 
-int main()
+t_token_reader	expand_tokens(t_token_reader *tr)
 {
-	char	*string;
-	char	*start;
-	char	*end;
-	char	*result;
+	t_token_reader	exp;
+	(void)tr;
 
-	string = "Hola";
-	start = string;
-	end = string + 1;
-	result = str_in_ptrs(start, end);
-	if (!streq(result, "H"))
-		return (-1);
-	return (0);
+	exp = init_token_reader();
+	return (exp);
 }

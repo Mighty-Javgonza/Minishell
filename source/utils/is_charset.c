@@ -1,29 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   zz_temp_test.c                                     :+:      :+:    :+:   */
+/*   is_charset.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/07 11:40:47 by javgonza          #+#    #+#             */
-/*   Updated: 2021/09/10 10:39:21 by javgonza         ###   ########.fr       */
+/*   Created: 2021/09/10 10:19:40 by javgonza          #+#    #+#             */
+/*   Updated: 2021/09/10 11:58:11 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../tests.h"
+#include "utils.h"
+#include "../../libft/incs/libft.h"
 
-int main()
+int	is_charset(char c, char *set)
 {
-	char	*string;
-	char	*start;
-	char	*end;
-	char	*result;
+	char	*place_in_set;
 
-	string = "Hola";
-	start = string;
-	end = string + 1;
-	result = str_in_ptrs(start, end);
-	if (!streq(result, "H"))
-		return (-1);
-	return (0);
+	place_in_set = ft_strchr(set, c);
+	return (place_in_set != NULL);
 }

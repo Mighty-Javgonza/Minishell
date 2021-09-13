@@ -1,29 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   zz_temp_test.c                                     :+:      :+:    :+:   */
+/*   init_token_reader.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/07 11:40:47 by javgonza          #+#    #+#             */
-/*   Updated: 2021/09/10 10:39:21 by javgonza         ###   ########.fr       */
+/*   Created: 2021/09/10 12:21:12 by javgonza          #+#    #+#             */
+/*   Updated: 2021/09/10 12:21:15 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../tests.h"
+#include "command_interpreter.h"
 
-int main()
+t_token_reader	init_token_reader()
 {
-	char	*string;
-	char	*start;
-	char	*end;
-	char	*result;
+	t_token_reader	rvalue;
 
-	string = "Hola";
-	start = string;
-	end = string + 1;
-	result = str_in_ptrs(start, end);
-	if (!streq(result, "H"))
-		return (-1);
-	return (0);
+	rvalue = (t_token_reader)
+	{
+		.tokens = NULL,
+		.token_count = 0,
+	};
+	return (rvalue);
 }
