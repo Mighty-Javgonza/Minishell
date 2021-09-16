@@ -6,7 +6,7 @@
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/10 10:05:36 by javgonza          #+#    #+#             */
-/*   Updated: 2021/09/13 10:37:05 by javgonza         ###   ########.fr       */
+/*   Updated: 2021/09/14 09:30:20 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,7 @@ t_token	get_first_token_from_string(char *string)
 	token_start = get_token_start(string);
 	if (token_start == NULL)
 		return (token);
-	if (*token_start == '\"')
-		token.type = TOKEN_TYPE_DOUBLE_QUOTE;
-	else if (*token_start == '\'')
-		token.type = TOKEN_TYPE_SIMPLE_QUOTE;
-	else if (is_charset(*token_start, TOKEN_SPECIAL_CHARS))
-		token.type = TOKEN_TYPE_SPECIAL;
-	token_end = get_token_end(&token, token_start);
+	token_end = get_token_end(token_start);
 	if (token_end == NULL)
 		return (token);
 	token.value = str_in_ptrs(token_start, token_end);

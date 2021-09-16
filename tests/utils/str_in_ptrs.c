@@ -6,7 +6,7 @@
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 11:40:47 by javgonza          #+#    #+#             */
-/*   Updated: 2021/09/10 10:39:21 by javgonza         ###   ########.fr       */
+/*   Updated: 2021/09/13 11:36:24 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int main()
 	start = string;
 	end = string + 1;
 	result = str_in_ptrs(start, end);
-	if (!streq(result, "H"))
+	if (!streq(result, "Ho"))
 		return (-1);
 	return (0);
 }

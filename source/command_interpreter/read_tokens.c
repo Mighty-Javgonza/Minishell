@@ -6,7 +6,7 @@
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/10 12:14:39 by javgonza          #+#    #+#             */
-/*   Updated: 2021/09/10 13:41:24 by javgonza         ###   ########.fr       */
+/*   Updated: 2021/09/14 10:54:49 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,16 @@ t_token_reader	read_tokens(char *string)
 	tr = init_token_reader();
 	token = init_token();
 	token = get_first_token_from_string(string);
-	add_token(&tr, token);
+	if (token.value != NULL)
+		add_token(&tr, token);
 	token_start = token.end;
 	while (token.value != NULL && *token_start != '\0')
 	{
 		token = init_token();
 		token = get_first_token_from_string(token_start + 1);
 		token_start = token.end;
-		add_token(&tr, token);
+		if (token.value != NULL)
+			add_token(&tr, token);
 	}
 	return (tr);
 }

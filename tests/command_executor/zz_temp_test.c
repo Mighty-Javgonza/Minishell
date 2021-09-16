@@ -6,24 +6,27 @@
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 10:49:32 by javgonza          #+#    #+#             */
-/*   Updated: 2021/09/09 13:36:03 by javgonza         ###   ########.fr       */
+/*   Updated: 2021/09/16 09:54:12 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../tests.h"
 #include <readline/readline.h>
 
-int main()
+int main(int argc, char **argv, char **env)
 {
-	char	*args[2];
-	int		res;
+	t_token_reader	tr;
+	t_token_reader	exp;
+	t_sentence		sentence;
 
+	(void)argc;
+	(void)argv;
 	init_minishell_data();
-	load_env_variable("PATH=./tests/test_programs");
-	args[0] = "hello_world.out";
-	args[1] = NULL;
-	res = execute_command("hello_world.out", args);
-	if (res != 0)
-		return (-1);
+	copy_env_variables(env);
+	tr = init_token_reader();
+	tr = read_tokens("echo hola | wc | wc");
+	exp = expand_tokens(&tr);
+	sentence = parse_sentence(&exp);
+	execute_sentence(&sentence);
 	return (0);
 }

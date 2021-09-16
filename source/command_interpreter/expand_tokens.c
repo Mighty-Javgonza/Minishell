@@ -6,17 +6,24 @@
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/10 13:44:02 by javgonza          #+#    #+#             */
-/*   Updated: 2021/09/10 13:53:54 by javgonza         ###   ########.fr       */
+/*   Updated: 2021/09/13 17:34:31 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "command_interpreter.h"
+#include <stdio.h>
 
 t_token_reader	expand_tokens(t_token_reader *tr)
 {
+	size_t	i;
 	t_token_reader	exp;
-	(void)tr;
 
 	exp = init_token_reader();
+	i = 0;
+	while (i < tr->token_count)
+	{
+		add_expansion_to_reader(&exp, &tr->tokens[i]);
+		i++;
+	}
 	return (exp);
 }

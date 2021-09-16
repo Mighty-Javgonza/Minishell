@@ -6,7 +6,7 @@
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 11:40:47 by javgonza          #+#    #+#             */
-/*   Updated: 2021/09/07 12:19:16 by javgonza         ###   ########.fr       */
+/*   Updated: 2021/09/13 15:38:14 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,4 +26,13 @@ char	*str_in_ptrs(char *start, char *end);
 char	*str_unsc_set_n(char *string, char *set);
 
 char	*str_unsc_set(char *string, char *set);
+
+char	*delete_substr(char *base, char *start, char *end);
+
+char	*insert_substr(char *base, char *start, char *insert);
+
+char	*subst_substr(char *base, char *start, char *end, char *insert);
+
+
+void	delete_char(char **str, char *delete);
 #endif

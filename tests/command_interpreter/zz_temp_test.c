@@ -6,7 +6,7 @@
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/10 09:54:33 by javgonza          #+#    #+#             */
-/*   Updated: 2021/09/13 09:53:01 by javgonza         ###   ########.fr       */
+/*   Updated: 2021/09/14 13:03:00 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,12 @@
 
 int main()
 {
-	t_token	token;
+	t_token_reader	tr;
+	t_token_reader	exp;
 
-	token = get_first_token_from_string("\\|");
-	if (!streq(token.value, "\\|"))
+	tr = read_tokens("<<");
+	exp = expand_tokens(&tr);
+	if (exp.tokens[0].type != TOKEN_TYPE_REDIRECT_INPUT_DELIMITER)
 		return (-1);
 	return (0);
 }

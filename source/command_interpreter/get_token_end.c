@@ -6,7 +6,7 @@
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/10 10:47:01 by javgonza          #+#    #+#             */
-/*   Updated: 2021/09/13 10:32:16 by javgonza         ###   ########.fr       */
+/*   Updated: 2021/09/14 10:48:17 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,58 +15,64 @@
 #include "../utils/utils.h"
 #include "../../libft/incs/libft.h"
 
-static char	*find_normal_case(char *token_start)
+static void	move_pointer_to_end_of_special_chars(char **token_end)
 {
-	char	*token_end;
-
-	token_end = str_unsc_set((char *)token_start, " 	"TOKEN_SPECIAL_CHARS);
-	if (token_end == NULL)
-		return (token_start + ft_strlen(token_start));
-	return (token_end - 1);
+	if (is_charset(**token_end, TOKEN_SPECIAL_CHARS))
+		if (is_charset(*(*token_end + 1), TOKEN_SPECIAL_CHARS))
+		{
+			if (*(*token_end + 2) != '\0' && is_charset(*(*token_end + 2), TOKEN_SPECIAL_CHARS))
+				(*token_end) = NULL;
+			else
+				(*token_end)++;
+		}
 }
 
-static char	*find_simple_quote(char *token_start)
+static int move_pointer_to_token_end(char **token_end, char *loop_start)
 {
-	char	*token_end;
+	int	end_found;
 
-	token_start++;
-	token_end = str_unsc_set(token_start, "\'");
-	return (token_end);
+	end_found = 0;
+	if (*token_end == NULL)
+	{
+		end_found = 1;
+		*token_end = loop_start + ft_strlen(loop_start) - 1;
+	}
+	else if (**token_end == '"')
+		*token_end = str_unsc_set(*token_end + 1, "\"");
+	else if (**token_end == '\'')
+		*token_end = str_unsc_set(*token_end + 1, "\'");
+	else if (loop_start == *token_end)
+	{
+		end_found = 1;
+		move_pointer_to_end_of_special_chars(token_end);
+	}
+	else
+	{
+		end_found = 1;
+		(*token_end)--;
+	}
+	return (end_found);
 }
 
-static char	*find_double_quote(char *token_start)
+char	*get_token_end(char *token_start)
 {
 	char	*token_end;
-
-	token_start++;
-	token_end = str_unsc_set(token_start, "\"");
-	return (token_end);
-}
-
-static char	*find_special_case(char *token_start)
-{
-	char	*token_end;
-
-	token_end = token_start;
-	if (is_charset(*(token_end + 1), TOKEN_SPECIAL_CHARS))
-		token_end++;
-	if (is_charset(*(token_end + 1), TOKEN_SPECIAL_CHARS))
-		return (NULL);
-	return (token_end);
-}
-
-char	*get_token_end(t_token *token, char *token_start)
-{
-	char	*token_end;
+	int		end_found;
+	char	*loop_start;
 	
+	end_found = 0;
 	token_end = NULL;
-	if (token->type == TOKEN_TYPE_NORMAL)
-		token_end = find_normal_case(token_start);
-	else if (token->type == TOKEN_TYPE_SIMPLE_QUOTE)
-		token_end = find_simple_quote(token_start);
-	else if (token->type == TOKEN_TYPE_DOUBLE_QUOTE)
-		token_end = find_double_quote(token_start);
-	else if (token->type == TOKEN_TYPE_SPECIAL)
-		token_end = find_special_case(token_start);
+	token_start = strcharset_n(token_start, " \t");
+	if (token_start == NULL)
+		return (NULL);
+	loop_start = token_start;
+	while (end_found != 1)
+	{
+		token_end = str_unsc_set(loop_start, " \t\"'"TOKEN_SPECIAL_CHARS);
+		end_found = move_pointer_to_token_end(&token_end, loop_start);
+		loop_start = token_end + 1;
+		if (token_end == NULL)
+			break ;
+	}
 	return (token_end);
 }

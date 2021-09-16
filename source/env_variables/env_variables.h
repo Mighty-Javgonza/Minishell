@@ -89,4 +89,6 @@ t_env_variable	*find_extra_var(char *name);
 void	export_var(char *name);
 
 void	set_path(char *name, char *value);
+
+void	set_home(char *name, char *value);
 #endif
