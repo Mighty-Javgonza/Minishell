@@ -6,7 +6,7 @@
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 10:35:27 by javgonza          #+#    #+#             */
-/*   Updated: 2021/09/24 05:03:18 by javgonza         ###   ########.fr       */
+/*   Updated: 2021/09/24 05:54:33 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,16 @@ static void	open_command_out_redirection(t_sentence *sentence, size_t i)
 	sentence->commands[i].output_fd = fd;
 }
 
+static void	open_command_out_append_redirection(t_sentence *sentence, size_t i)
+{
+	int		fd;
+	char	*file;
+
+	file = sentence->commands[i].out_name;
+	fd = open(file, O_CREAT | O_WRONLY | O_APPEND, 0777);
+	sentence->commands[i].output_fd = fd;
+}
+
 static void	open_command_in_redirection(t_sentence *sentence, size_t i)
 {
 	int		fd;
@@ -58,6 +68,8 @@ void	open_pipes(t_sentence *sentence)
 			open_command_pipe(sentence, i);
 		else if ((redir & TOKEN_TYPE_REDIRECT_OUTPUT) != 0)
 			open_command_out_redirection(sentence, i);
+		else if ((redir & TOKEN_TYPE_REDIRECT_OUTPUT_APPEND) != 0)
+			open_command_out_append_redirection(sentence, i);
 		if (sentence->commands[i].input_fd != STDIN_FILENO && (redir & TOKEN_TYPE_REDIRECT_INPUT) != 0)
 			open_command_in_redirection(sentence, i);
 		i++;

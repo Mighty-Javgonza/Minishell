@@ -6,7 +6,7 @@
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/14 13:06:47 by javgonza          #+#    #+#             */
-/*   Updated: 2021/09/24 05:20:46 by javgonza         ###   ########.fr       */
+/*   Updated: 2021/09/24 05:34:02 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,25 +15,6 @@
 
 char	**get_args_from_tokens(t_token_reader *tr, size_t start)
 {
-/*	size_t	i;
-	char	**args;
-	size_t	final_token;
-	size_t	args_size;
-
-	final_token = start;
-	while (final_token < tr->token_count && tr->tokens[final_token].type == TOKEN_TYPE_NORMAL)
-		final_token++;
-	args_size = final_token - start;
-	args = malloc(sizeof(*args) * (args_size + 1));
-	i = 0;
-	while (i < args_size)
-	{
-		args[i] = ft_strdup(tr->tokens[i + start].value);
-		i++;
-	}
-	args[i + start] = NULL;
-	return (args);
-*/
 	char	*too_big_args[tr->token_count];
 	size_t	i;
 	size_t	arg_count;
@@ -45,7 +26,10 @@ char	**get_args_from_tokens(t_token_reader *tr, size_t start)
 	while (i < tr->token_count && tr->tokens[i].type != TOKEN_TYPE_PIPE)
 	{
 		token = &tr->tokens[i];
-		if (token->type == TOKEN_TYPE_REDIRECT_INPUT || token->type == TOKEN_TYPE_REDIRECT_OUTPUT)
+		if (token->type == TOKEN_TYPE_REDIRECT_INPUT
+				|| token->type == TOKEN_TYPE_REDIRECT_OUTPUT
+				|| token->type == TOKEN_TYPE_REDIRECT_OUTPUT_APPEND
+				|| token->type == TOKEN_TYPE_REDIRECT_INPUT_DELIMITER)
 			i++;
 		else
 		{

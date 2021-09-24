@@ -6,7 +6,7 @@
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 11:21:55 by javgonza          #+#    #+#             */
-/*   Updated: 2021/09/14 11:31:28 by javgonza         ###   ########.fr       */
+/*   Updated: 2021/09/24 06:34:12 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	load_env_variable(char *var)
 	set_shell(split[0], split[1]);
 	set_path(split[0], split[1]);
 	set_home(split[0], split[1]);
+	set_pwd(split[0], split[1]);
 	existing_var = find_default_var(split[0]);
 	if (existing_var == NULL)
 	{
