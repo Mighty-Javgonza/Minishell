@@ -6,13 +6,23 @@
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 09:04:44 by javgonza          #+#    #+#             */
-/*   Updated: 2021/09/15 10:28:09 by javgonza         ###   ########.fr       */
+/*   Updated: 2021/09/23 10:49:41 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "command_executor.h"
 #include <stdio.h>
 #include "../../libft/incs/libft.h"
+
+static int	is_non_ending_token(t_token *token)
+{
+	int	t;
+
+	t = token->type;
+	return (t == TOKEN_TYPE_NORMAL 
+			|| t == TOKEN_TYPE_REDIRECT_OUTPUT
+			|| t == TOKEN_TYPE_REDIRECT_INPUT);
+}
 
 t_token_reader	get_tokens_of_command(t_token_reader *exp, size_t start_token)
 {
@@ -22,7 +32,7 @@ t_token_reader	get_tokens_of_command(t_token_reader *exp, size_t start_token)
 
 	tr = init_token_reader();
 	i = start_token;
-	while (i < exp->token_count && exp->tokens[i].type == TOKEN_TYPE_NORMAL)
+	while (i < exp->token_count && is_non_ending_token(&exp->tokens[i]))
 		i++;
 	token_count = i - start_token;
 	tr.token_count = token_count;

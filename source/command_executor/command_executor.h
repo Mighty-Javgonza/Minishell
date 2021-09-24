@@ -6,7 +6,7 @@
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 10:49:32 by javgonza          #+#    #+#             */
-/*   Updated: 2021/09/15 14:53:03 by javgonza         ###   ########.fr       */
+/*   Updated: 2021/09/24 04:19:14 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,11 @@ typedef struct s_command
 {
 	t_token_reader	tr;
 	int				redirect_type;
+	char			*out_name;
+	char			*in_name;
 	int				input_fd;
 	int				output_fd;
+	int				gets_executed;
 }				t_command;
 
 typedef struct s_sentence
@@ -44,4 +47,12 @@ t_sentence	parse_sentence(t_token_reader *tr);
 void	open_pipes(t_sentence *sentence);
 int	execute_sentence(t_sentence *sentence);
 
+
+void	parse_commands_of_sentence(t_sentence *sentence, t_token_reader *tr);
+
+void	execute(char *command);
+
+void	set_redirect_type(t_command *command);
+
+void	set_redirect_names(t_command *command);
 #endif

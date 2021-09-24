@@ -1,31 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_command.c                                     :+:      :+:    :+:   */
+/*   set_redirect_type.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/14 13:27:04 by javgonza          #+#    #+#             */
-/*   Updated: 2021/09/24 04:19:26 by javgonza         ###   ########.fr       */
+/*   Created: 2021/09/23 11:19:55 by javgonza          #+#    #+#             */
+/*   Updated: 2021/09/24 04:14:21 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "command_executor.h"
-#include <unistd.h>
+#include <stdio.h>
 
-t_command	init_command()
+void	set_redirect_type(t_command *command)
 {
-	t_command	rvalue;
+	size_t	i;
+	t_token	*token;
 
-	rvalue = (t_command)
+	i = 0;
+	while (i < command->tr.token_count)
 	{
-		.tr = init_token_reader(),
-		.output_fd = STDOUT_FILENO,
-		.input_fd = STDIN_FILENO,
-		.redirect_type = 0,
-		.gets_executed = 1,
-		.out_name = NULL,
-		.in_name = NULL,
-	};
-	return (rvalue);
+		token = &command->tr.tokens[i];
+		if (token->type != TOKEN_TYPE_NORMAL)
+			command->redirect_type |= token->type;
+		i++;
+	}
 }

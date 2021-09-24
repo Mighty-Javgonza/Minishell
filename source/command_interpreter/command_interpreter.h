@@ -6,7 +6,7 @@
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/10 09:54:33 by javgonza          #+#    #+#             */
-/*   Updated: 2021/09/14 12:59:56 by javgonza         ###   ########.fr       */
+/*   Updated: 2021/09/24 04:11:19 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 # define COMMAND_INTERPRETER_H
 
 # define TOKEN_TYPE_NORMAL 0
-# define TOKEN_TYPE_PIPE 1
-# define TOKEN_TYPE_REDIRECT_INPUT 2
-# define TOKEN_TYPE_REDIRECT_OUTPUT 3
-# define TOKEN_TYPE_REDIRECT_OUTPUT_APPEND 4
-# define TOKEN_TYPE_REDIRECT_INPUT_DELIMITER 5
+# define TOKEN_TYPE_PIPE 0b1
+# define TOKEN_TYPE_REDIRECT_INPUT 0b10
+# define TOKEN_TYPE_REDIRECT_OUTPUT 0b100
+# define TOKEN_TYPE_REDIRECT_OUTPUT_APPEND 0b1000
+# define TOKEN_TYPE_REDIRECT_INPUT_DELIMITER 0b10000
 
 # define TOKEN_SPECIAL_CHARS "|<>&"
 
@@ -27,7 +27,7 @@
 typedef struct s_token
 {
 	char			*value;
-	unsigned int	type : 3;
+	unsigned int	type;
 	char			*end; //in original string
 }				t_token;
 
