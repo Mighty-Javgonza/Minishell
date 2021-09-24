@@ -6,7 +6,7 @@
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/13 10:59:12 by javgonza          #+#    #+#             */
-/*   Updated: 2021/09/16 11:18:28 by javgonza         ###   ########.fr       */
+/*   Updated: 2021/09/24 08:31:13 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@ static void	expand_escape_chars(t_token *token)
 {
 	char	*escape_char;
 	size_t	escape_index;
+
 	escape_char = ft_strchr(token->value, '\\');
 	while (escape_char != NULL)
 	{
 		escape_index = escape_char - token->value;
-	//	escape_contents = get_first_escaped_char(escape_char);
 		delete_char(&token->value, escape_char);
 		token->end = token->value + escape_index;
 		escape_char = ft_strchr(token->end, '\\');

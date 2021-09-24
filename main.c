@@ -6,7 +6,7 @@
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 10:06:49 by javgonza          #+#    #+#             */
-/*   Updated: 2021/09/24 07:49:26 by javgonza         ###   ########.fr       */
+/*   Updated: 2021/09/24 08:02:58 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 void	ctrl_c(int a)
 {
 	(void)a;
- printf("\nOK to here!\n");
+	printf("\n");
 }
 
 void	ctrl_d(int a)

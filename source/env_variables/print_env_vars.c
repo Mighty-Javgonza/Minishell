@@ -6,7 +6,7 @@
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 13:33:48 by javgonza          #+#    #+#             */
-/*   Updated: 2021/09/07 15:48:19 by javgonza         ###   ########.fr       */
+/*   Updated: 2021/09/24 08:07:34 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	print_one_var(t_env_variable var)
 	printf("%s\n", var.value);
 }
 
-void	print_env_vars()
+void	print_env_vars(void)
 {
 	size_t			i;
 	t_env_variable	*casted_env_vars;
@@ -39,5 +39,5 @@ void	print_env_vars()
 	{
 		print_one_var(g_minishell_data.extra_variables[i]);
 		i++;
-	}	
+	}
 }

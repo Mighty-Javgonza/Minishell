@@ -6,7 +6,7 @@
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 15:24:21 by javgonza          #+#    #+#             */
-/*   Updated: 2021/09/24 07:03:43 by javgonza         ###   ########.fr       */
+/*   Updated: 2021/09/24 08:07:32 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ t_env_variable	*find_default_var(char *name)
 {
 	size_t			i;
 	t_env_variable	*list;
-	
+
 	list = (t_env_variable *)&g_minishell_data;
 	i = 0;
 	while (i < g_minishell_data.default_env_var_count)

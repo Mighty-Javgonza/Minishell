@@ -6,7 +6,7 @@
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 11:07:54 by javgonza          #+#    #+#             */
-/*   Updated: 2021/09/24 07:30:19 by javgonza         ###   ########.fr       */
+/*   Updated: 2021/09/24 08:20:22 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,19 +25,33 @@ t_builtin	find_builtin_by_name(char *name)
 	i = 0;
 	while (i < BUILTIN_COUNT)
 	{
-		if (streq((char *)builtins[i].name, name))
-			return (builtins[i].builtin);
+		if (streq((char *)g_builtins[i].name, name))
+			return (g_builtins[i].builtin);
 		i++;
 	}
 	return (NULL);
 }
 
+static void	try_command_on_all_paths(char **path_split, char *command,
+			char **args, int *executed)
+{
+	size_t	i;
+
+	i = 0;
+	while (*executed != 0 && path_split[i] != NULL)
+	{
+		*executed = try_to_execute_command_on_folder(path_split[i],
+				command, args, NULL);
+		i++;
+	}
+	ft_freearray(path_split);
+}
+
 int	execute_command_string_form(char *command, char **args)
 {
-	int			executed;
 	char		**path_split;
-	size_t		i;
 	t_builtin	builtin;
+	int			executed;
 
 	builtin = find_builtin_by_name(args[0]);
 	if (builtin != NULL)
@@ -46,60 +60,12 @@ int	execute_command_string_form(char *command, char **args)
 		builtin(args);
 		return (0);
 	}
-/*	if (streq(command, "cd"))
-	{
-		builtin_cd(args);
-		return (0);
-	}
-	if (streq(command, "authors"))
-	{
-		builtin_authors(args);
-		return (0);
-	}
-	if (streq(command, "export"))
-	{
-		builtin_export(args);
-		return (0);
-	}
-	if (streq(command, "env"))
-	{
-		builtin_env(args);
-		return (0);
-	}
-	if (streq(command, "pwd"))
-	{
-		builtin_pwd(args);
-		return (0);
-	}
-	if (streq(command, "unset"))
-	{
-		builtin_unset(args);
-		return (0);
-	}
-	if (streq(command, "echo"))
-	{
-		builtin_echo(args);
-		return (0);
-	}
-	if (streq(command, "exit"))
-	{
-		builtin_exit(args);
-		return (0);
-	}*/
 	executed = execute_command_from_path(command, args, NULL);
 	if (executed != 0)
 	{
 		path_split = ft_split(g_minishell_data.path.value, ':');
 		if (path_split != NULL)
-		{
-			i = 0;
-			while (executed != 0 && path_split[i] != NULL)
-			{
-				executed = try_to_execute_command_on_folder(path_split[i], command, args, NULL);
-				i++;
-			}
-			ft_freearray(path_split);
-		}
+			try_command_on_all_paths(path_split, command, args, &executed);
 	}
 	if (executed != 0)
 		printf(MINISHELL_PROMPT"Comando falla\n");

@@ -6,7 +6,7 @@
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/10 10:05:36 by javgonza          #+#    #+#             */
-/*   Updated: 2021/09/14 09:30:20 by javgonza         ###   ########.fr       */
+/*   Updated: 2021/09/24 08:07:29 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 static char	*get_token_start(char *string)
 {
 	char	*token_start;
-	
+
 	token_start = strcharset_n(string, " 	");
 	return (token_start);
 }

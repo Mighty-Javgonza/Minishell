@@ -6,7 +6,7 @@
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/10 09:54:33 by javgonza          #+#    #+#             */
-/*   Updated: 2021/09/24 04:11:19 by javgonza         ###   ########.fr       */
+/*   Updated: 2021/09/24 08:31:42 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ typedef struct s_token
 {
 	char			*value;
 	unsigned int	type;
-	char			*end; //in original string
+	char			*end;
 }				t_token;
 
 typedef struct s_token_reader
@@ -37,20 +37,15 @@ typedef struct s_token_reader
 	size_t	token_count;
 }				t_token_reader;
 
-t_token	init_token();
-t_token	get_first_token_from_string(char *string);
-char	*get_token_end(char *token_start);
+t_token			init_token(void);
+t_token			get_first_token_from_string(char *string);
+char			*get_token_end(char *token_start);
 t_token_reader	read_tokens(char *string);
-
-
-t_token_reader	init_token_reader();
-
-void	add_token(t_token_reader *tr, t_token token);
-
+t_token_reader	init_token_reader(void);
+void			add_token(t_token_reader *tr, t_token token);
 t_token_reader	expand_tokens(t_token_reader *tr);
-void	add_expansion_to_reader(t_token_reader *tr, t_token *token);
+void			add_expansion_to_reader(t_token_reader *tr, t_token *token);
+char			*get_first_escaped_char(char *string);
+void			expand_variables(t_token *token);
 
-char	*get_first_escaped_char(char *string);
-
-void	expand_variables(t_token *token);
 #endif

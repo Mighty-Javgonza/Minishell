@@ -6,7 +6,7 @@
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/10 10:47:01 by javgonza          #+#    #+#             */
-/*   Updated: 2021/09/14 10:48:17 by javgonza         ###   ########.fr       */
+/*   Updated: 2021/09/24 08:35:50 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,23 @@
 
 static void	move_pointer_to_end_of_special_chars(char **token_end)
 {
+	char	tt;
+
 	if (is_charset(**token_end, TOKEN_SPECIAL_CHARS))
-		if (is_charset(*(*token_end + 1), TOKEN_SPECIAL_CHARS))
+	{
+		tt = *(*token_end + 1);
+		if (is_charset(tt, TOKEN_SPECIAL_CHARS))
 		{
-			if (*(*token_end + 2) != '\0' && is_charset(*(*token_end + 2), TOKEN_SPECIAL_CHARS))
+			if (*(*token_end + 2) != '\0' && is_charset(*(*token_end + 2),
+					TOKEN_SPECIAL_CHARS))
 				(*token_end) = NULL;
 			else
 				(*token_end)++;
 		}
+	}
 }
 
-static int move_pointer_to_token_end(char **token_end, char *loop_start)
+static int	move_pointer_to_token_end(char **token_end, char *loop_start)
 {
 	int	end_found;
 
@@ -59,7 +65,7 @@ char	*get_token_end(char *token_start)
 	char	*token_end;
 	int		end_found;
 	char	*loop_start;
-	
+
 	end_found = 0;
 	token_end = NULL;
 	token_start = strcharset_n(token_start, " \t");

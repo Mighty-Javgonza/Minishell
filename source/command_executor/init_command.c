@@ -6,14 +6,14 @@
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/14 13:27:04 by javgonza          #+#    #+#             */
-/*   Updated: 2021/09/24 04:19:26 by javgonza         ###   ########.fr       */
+/*   Updated: 2021/09/24 08:07:26 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "command_executor.h"
 #include <unistd.h>
 
-t_command	init_command()
+t_command	init_command(void)
 {
 	t_command	rvalue;
 

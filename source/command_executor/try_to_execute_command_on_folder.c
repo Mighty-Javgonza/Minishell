@@ -6,7 +6,7 @@
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 13:02:08 by javgonza          #+#    #+#             */
-/*   Updated: 2021/09/15 13:48:12 by javgonza         ###   ########.fr       */
+/*   Updated: 2021/09/24 08:29:20 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ static char	*join_with_slash(char *path, char *command)
 	return (command_path);
 }
 
-int	try_to_execute_command_on_folder(char *path, char *command, char **args, char **env)
+int	try_to_execute_command_on_folder(char *path, char *command, char **args,
+			char **env)
 {
 	char	*command_path;
 	int		executed;

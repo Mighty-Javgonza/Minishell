@@ -6,7 +6,7 @@
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 11:27:08 by javgonza          #+#    #+#             */
-/*   Updated: 2021/09/24 04:42:57 by javgonza         ###   ########.fr       */
+/*   Updated: 2021/09/24 08:29:47 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,10 @@ static void	add_command(t_sentence *sentence, t_command command)
 	t_command	*old_commands;
 
 	old_commands = sentence->commands;
-	sentence->commands = malloc(sizeof(*sentence->commands) * (sentence->command_count + 1));
-	ft_memmove(sentence->commands, old_commands, sizeof(*sentence->commands) * sentence->command_count);
+	sentence->commands = malloc(
+			sizeof(*sentence->commands) * (sentence->command_count + 1));
+	ft_memmove(sentence->commands, old_commands,
+		sizeof(*sentence->commands) * sentence->command_count);
 	sentence->commands[sentence->command_count] = command;
 	sentence->command_count++;
 }
