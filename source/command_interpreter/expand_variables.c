@@ -6,7 +6,7 @@
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/13 16:13:00 by javgonza          #+#    #+#             */
-/*   Updated: 2021/09/13 17:21:46 by javgonza         ###   ########.fr       */
+/*   Updated: 2021/09/24 07:07:46 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,13 +60,21 @@ void	expand_variables(t_token *token)
 {
 	char			*new_val;
 	char			*var_start;
+	char			*error;
 	
 	while (1)
 	{
 		var_start = find_first_var(token->value);
 		if (var_start == NULL)
 			return ;
-		new_val = substitute_var_in_string(token->value, var_start);
+		if (*(var_start + 1) == '?')
+		{
+			error = ft_itoa(g_minishell_data.error_code);
+			new_val = subst_substr(token->value, var_start, var_start + 1, error);
+			free(error);
+		}
+		else
+			new_val = substitute_var_in_string(token->value, var_start);
 		free(token->value);
 		token->value = new_val;
 	}

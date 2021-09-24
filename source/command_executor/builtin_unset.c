@@ -1,38 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execute_command_from_path.c                        :+:      :+:    :+:   */
+/*   builtin_unset.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/09 12:37:27 by javgonza          #+#    #+#             */
-/*   Updated: 2021/09/24 07:01:13 by javgonza         ###   ########.fr       */
+/*   Created: 2021/09/24 07:18:56 by javgonza          #+#    #+#             */
+/*   Updated: 2021/09/24 07:22:10 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "command_executor.h"
 #include <stdio.h>
-#include <stdlib.h>
 #include <unistd.h>
+#include <stdlib.h>
+#include "../../libft/incs/libft.h"
 #include "../env_variables/env_variables.h"
 
-int	execute_command_from_path(char *command_path, char **args, char **env)
+void	builtin_unset(char **args)
 {
-	pid_t	pid;
-	int		error_code;
+	t_env_variable	*var;
 
-	error_code = 0;
-	g_minishell_data.error_code = 0;
-	pid = fork();
-	if (pid == 0)
+	args++;
+	while (*args != NULL)
 	{
-		error_code = execve(command_path, args, env);
-		exit(error_code);
+		var = find_env_var(*args);
+		var->is_local = 1;
+		args++;
 	}
-	else
-	{
-		waitpid(pid, &error_code, 0);
-		g_minishell_data.error_code = error_code;
-	}
-	return (error_code);
 }

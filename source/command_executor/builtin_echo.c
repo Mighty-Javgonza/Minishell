@@ -1,38 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execute_command_from_path.c                        :+:      :+:    :+:   */
+/*   builtin_echo.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/09 12:37:27 by javgonza          #+#    #+#             */
-/*   Updated: 2021/09/24 07:01:13 by javgonza         ###   ########.fr       */
+/*   Created: 2021/09/24 07:17:07 by javgonza          #+#    #+#             */
+/*   Updated: 2021/09/24 07:17:25 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "command_executor.h"
 #include <stdio.h>
-#include <stdlib.h>
 #include <unistd.h>
+#include <stdlib.h>
+#include "../../libft/incs/libft.h"
 #include "../env_variables/env_variables.h"
+#include "../utils/utils.h"
 
-int	execute_command_from_path(char *command_path, char **args, char **env)
+void	builtin_echo(char **args)
 {
-	pid_t	pid;
-	int		error_code;
+	int				writes_nl;
 
-	error_code = 0;
-	g_minishell_data.error_code = 0;
-	pid = fork();
-	if (pid == 0)
+	writes_nl = 1;
+	args++;
+	if (streq(args[0], "-n"))
 	{
-		error_code = execve(command_path, args, env);
-		exit(error_code);
+		writes_nl = 0;
+		args++;
 	}
-	else
+	while (*args != NULL)
 	{
-		waitpid(pid, &error_code, 0);
-		g_minishell_data.error_code = error_code;
+		printf("%s", *args);
+		args++;
 	}
-	return (error_code);
+	if (writes_nl)
+		printf("\n");
 }

@@ -1,30 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   find_default_var.c                                 :+:      :+:    :+:   */
+/*   segfault.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/07 15:24:21 by javgonza          #+#    #+#             */
-/*   Updated: 2021/09/24 07:03:43 by javgonza         ###   ########.fr       */
+/*   Created: 2021/09/24 07:09:00 by javgonza          #+#    #+#             */
+/*   Updated: 2021/09/24 07:09:29 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env_variables.h"
-#include "../utils/utils.h"
-
-t_env_variable	*find_default_var(char *name)
+int main()
 {
-	size_t			i;
-	t_env_variable	*list;
-	
-	list = (t_env_variable *)&g_minishell_data;
-	i = 0;
-	while (i < g_minishell_data.default_env_var_count)
-	{
-		if (streq(list[i].name, name))
-			return (&list[i]);
-		i++;
-	}
-	return (NULL);
+	char	*str;
+
+	str = 0;
+	*str = 'a';
 }

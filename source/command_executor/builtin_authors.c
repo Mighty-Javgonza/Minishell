@@ -1,38 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execute_command_from_path.c                        :+:      :+:    :+:   */
+/*   builtin_authors.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/09 12:37:27 by javgonza          #+#    #+#             */
-/*   Updated: 2021/09/24 07:01:13 by javgonza         ###   ########.fr       */
+/*   Created: 2021/09/24 07:15:09 by javgonza          #+#    #+#             */
+/*   Updated: 2021/09/24 07:44:33 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "command_executor.h"
-#include <stdio.h>
-#include <stdlib.h>
 #include <unistd.h>
+#include <stdlib.h>
 #include "../env_variables/env_variables.h"
+#include "../utils/utils.h"
 
-int	execute_command_from_path(char *command_path, char **args, char **env)
+void	builtin_authors(char **args)
 {
-	pid_t	pid;
-	int		error_code;
+	char	*jav_path;
+	char	*baz_path;
+	char	*auth_args[3];
 
-	error_code = 0;
-	g_minishell_data.error_code = 0;
-	pid = fork();
-	if (pid == 0)
-	{
-		error_code = execve(command_path, args, env);
-		exit(error_code);
-	}
-	else
-	{
-		waitpid(pid, &error_code, 0);
-		g_minishell_data.error_code = error_code;
-	}
-	return (error_code);
+	(void)args;
+	jav_path = PROJECT_DIR"/authors/facegonza.term";
+	baz_path = PROJECT_DIR"/authors/facezuara.term";
+	auth_args[0] = "cat";
+	auth_args[1] = baz_path;
+	auth_args[2] = NULL;
+	execute_command_string_form(auth_args[0], auth_args);
+	auth_args[1] = jav_path;
+	execute_command_string_form(auth_args[0], auth_args);
 }

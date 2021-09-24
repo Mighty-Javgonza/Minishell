@@ -6,7 +6,7 @@
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 10:49:32 by javgonza          #+#    #+#             */
-/*   Updated: 2021/09/24 04:19:14 by javgonza         ###   ########.fr       */
+/*   Updated: 2021/09/24 07:41:32 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,16 @@ typedef struct s_sentence
 	size_t		command_count;
 }				t_sentence;
 
+typedef void (*t_builtin)(char **args);
+
+typedef struct s_named_builtin
+{
+	t_builtin	builtin;
+	char		name[10];
+}				t_named_builtin;
+
+#define BUILTIN_COUNT 8
+
 int	execute_command_string_form(char *command, char **args);
 int	execute_command_from_path(char *command_path, char **args, char **env);
 int	try_to_execute_command_on_folder(char *path, char *command, char **args, char **env);
@@ -55,4 +65,25 @@ void	execute(char *command);
 void	set_redirect_type(t_command *command);
 
 void	set_redirect_names(t_command *command);
+
+void	builtin_authors(char **args);
+void	builtin_echo(char **args);
+void	builtin_exit(char **args);
+void	builtin_export(char **vars_to_export);
+void	builtin_cd(char **args);
+void	builtin_env(char **args);
+void	builtin_pwd(char **args);
+void	builtin_unset(char **args);
+
+static const t_named_builtin builtins[BUILTIN_COUNT] = {
+	{builtin_authors, "authors"},
+	{builtin_echo, "echo"},
+	{builtin_exit, "exit"},
+	{builtin_export, "export"},
+	{builtin_cd, "cd"},
+	{builtin_env, "env"},
+	{builtin_pwd, "pwd"},
+	{builtin_unset, "unset"},
+};
+
 #endif

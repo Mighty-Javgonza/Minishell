@@ -1,38 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execute_command_from_path.c                        :+:      :+:    :+:   */
+/*   builtin_export.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/09 12:37:27 by javgonza          #+#    #+#             */
-/*   Updated: 2021/09/24 07:01:13 by javgonza         ###   ########.fr       */
+/*   Created: 2021/09/24 07:16:11 by javgonza          #+#    #+#             */
+/*   Updated: 2021/09/24 07:16:25 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "command_executor.h"
 #include <stdio.h>
-#include <stdlib.h>
 #include <unistd.h>
+#include <stdlib.h>
+#include "../../libft/incs/libft.h"
 #include "../env_variables/env_variables.h"
+#include "../utils/utils.h"
 
-int	execute_command_from_path(char *command_path, char **args, char **env)
+void	builtin_export(char **vars_to_export)
 {
-	pid_t	pid;
-	int		error_code;
+	size_t			i;
+	char			**split;
 
-	error_code = 0;
-	g_minishell_data.error_code = 0;
-	pid = fork();
-	if (pid == 0)
+	i = 1;
+	while (vars_to_export[i] != NULL)
 	{
-		error_code = execve(command_path, args, env);
-		exit(error_code);
+		load_env_variable(vars_to_export[i]);
+		split = ft_split(vars_to_export[i], '=');
+		export_var(split[0]);
+		ft_freearray(split);
+		i++;
 	}
-	else
-	{
-		waitpid(pid, &error_code, 0);
-		g_minishell_data.error_code = error_code;
-	}
-	return (error_code);
 }
