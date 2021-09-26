@@ -6,7 +6,7 @@
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/23 11:19:55 by javgonza          #+#    #+#             */
-/*   Updated: 2021/09/24 08:07:27 by javgonza         ###   ########.fr       */
+/*   Updated: 2021/09/26 12:31:57 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,10 @@ void	set_redirect_type(t_command *command)
 				command->redirect_type &= ~TOKEN_TYPE_REDIRECT_OUTPUT_APPEND;
 			if (t == TOKEN_TYPE_REDIRECT_OUTPUT_APPEND)
 				command->redirect_type &= ~TOKEN_TYPE_REDIRECT_OUTPUT;
+			if (t == TOKEN_TYPE_REDIRECT_INPUT)
+				command->redirect_type &= ~TOKEN_TYPE_REDIRECT_INPUT_DELIMITER;
+			if (t == TOKEN_TYPE_REDIRECT_INPUT_DELIMITER)
+				command->redirect_type &= ~TOKEN_TYPE_REDIRECT_INPUT;
 			command->redirect_type |= t;
 		}
 		i++;

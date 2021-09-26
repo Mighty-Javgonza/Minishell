@@ -1,28 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   zz_temp_test.c                                     :+:      :+:    :+:   */
+/*   read_until_line.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/09 10:49:32 by javgonza          #+#    #+#             */
-/*   Updated: 2021/09/26 11:41:33 by javgonza         ###   ########.fr       */
+/*   Created: 2021/09/26 11:22:17 by javgonza          #+#    #+#             */
+/*   Updated: 2021/09/26 11:40:52 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../tests.h"
-#include <readline/readline.h>
+#include "command_executor.h"
+#include "../../libft/incs/libft.h"
+#include "../utils/utils.h"
 
-int main()
+void	read_until_line(int out_fd, char *limit)
 {
-#if 0
-	int	fds[2];
-	char	text[1000];
+	char	*line;
 
-	pipe(fds);
-	read_until_line(fds[1], "hola");
-	close(fds[1]);
-	read(fds[0], text, 1000);
-#endif
-	return (0);
+	line = NULL;
+	write(STDOUT_FILENO, ">", 1);
+	get_next_line(STDIN_FILENO, &line);
+	while (!streq(line, limit))
+	{
+		write(out_fd, line, ft_strlen(line));
+		write(out_fd, "\n", 1);
+		write(STDOUT_FILENO, ">", 1);
+		get_next_line(STDIN_FILENO, &line);
+	}
 }

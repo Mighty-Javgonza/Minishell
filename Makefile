@@ -49,7 +49,7 @@ all: dirs $(NAME)
 
 dirs: $(BUILD_DIRS)
 
-$(NAME): $(LIBFT) $(OBJ_FILES)
+$(NAME): $(LIBFT) $(OBJ_FILES) $(MAIN)
 	@$(ECHO) Compiling main
 	@$(COMPILER) $(MAIN) -o $(NAME) $(OBJ_FILES) $(LIBFT) -lreadline
 

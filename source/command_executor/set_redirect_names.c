@@ -6,7 +6,7 @@
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 04:21:09 by javgonza          #+#    #+#             */
-/*   Updated: 2021/09/24 08:11:52 by javgonza         ###   ########.fr       */
+/*   Updated: 2021/09/26 12:33:50 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,23 +32,14 @@ static t_token	*first_token_after_last_token_of_type(t_token_reader *tr,
 
 void	set_redirect_names(t_command *command)
 {
-	t_token	*token1;
-	t_token	*token2;
+	t_token	*token;
 
-	token1 = first_token_after_last_token_of_type(
-			&command->tr, TOKEN_TYPE_REDIRECT_OUTPUT);
-	if (token1 != NULL)
-		command->out_name = token1->value;
-	token2 = first_token_after_last_token_of_type(
-			&command->tr, TOKEN_TYPE_REDIRECT_OUTPUT_APPEND);
-	if (token2 > token1)
-		command->out_name = token2->value;
-	token1 = first_token_after_last_token_of_type(
-			&command->tr, TOKEN_TYPE_REDIRECT_INPUT);
-	if (token1 != NULL)
-		command->in_name = token1->value;
-	token2 = first_token_after_last_token_of_type(
-			&command->tr, TOKEN_TYPE_REDIRECT_INPUT_DELIMITER);
-	if (token2 > token1)
-		command->in_name = token2->value;
+	token = first_token_after_last_token_of_type(
+			&command->tr, command->redirect_type & OUTPUT_REDIRS);
+	if (token != NULL)
+		command->out_name = token->value;
+	token = first_token_after_last_token_of_type(
+			&command->tr, command->redirect_type & INPUT_REDIRS);
+	if (token != NULL)
+		command->in_name = token->value;
 }

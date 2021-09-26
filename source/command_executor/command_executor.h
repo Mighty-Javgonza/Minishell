@@ -6,7 +6,7 @@
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 10:49:32 by javgonza          #+#    #+#             */
-/*   Updated: 2021/09/24 08:13:28 by javgonza         ###   ########.fr       */
+/*   Updated: 2021/09/26 12:33:27 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,9 @@
 # define MINISHELL_PROMPT "minishell dice:"
  
 # include "../command_interpreter/command_interpreter.h"
+
+# define OUTPUT_REDIRS (TOKEN_TYPE_REDIRECT_OUTPUT | TOKEN_TYPE_REDIRECT_OUTPUT_APPEND)
+# define INPUT_REDIRS (TOKEN_TYPE_REDIRECT_INPUT | TOKEN_TYPE_REDIRECT_INPUT_DELIMITER)
 
 typedef struct s_command
 {
@@ -68,6 +71,7 @@ void			builtin_cd(char **args);
 void			builtin_env(char **args);
 void			builtin_pwd(char **args);
 void			builtin_unset(char **args);
+void			read_until_line(int out_fd, char *limit);
 
 static const t_named_builtin	g_builtins[BUILTIN_COUNT] = {
 	{builtin_authors, "authors"},

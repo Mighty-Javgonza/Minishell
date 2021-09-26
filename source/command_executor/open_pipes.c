@@ -6,7 +6,7 @@
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 10:35:27 by javgonza          #+#    #+#             */
-/*   Updated: 2021/09/24 08:27:48 by javgonza         ###   ########.fr       */
+/*   Updated: 2021/09/26 12:26:46 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,16 @@ static void	open_command_in_redirection(t_sentence *sentence, size_t i)
 	sentence->commands[i].input_fd = fd;
 }
 
+static void	open_command_in_delimiter_redirection(t_sentence *sentence, size_t i)
+{
+	int	pipe_fds[2];
+
+	pipe(pipe_fds);
+	read_until_line(pipe_fds[1], sentence->commands[i].in_name);
+	close(pipe_fds[1]);
+	sentence->commands[i].input_fd = pipe_fds[0];
+}
+
 void	open_pipes(t_sentence *sentence)
 {
 	size_t		i;
@@ -73,6 +83,8 @@ void	open_pipes(t_sentence *sentence)
 		if (sentence->commands[i].input_fd != STDIN_FILENO && (redir
 				& TOKEN_TYPE_REDIRECT_INPUT) != 0)
 			open_command_in_redirection(sentence, i);
+		else if ((redir & TOKEN_TYPE_REDIRECT_INPUT_DELIMITER) != 0)
+			open_command_in_delimiter_redirection(sentence, i);
 		i++;
 	}
 }
