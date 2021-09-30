@@ -6,7 +6,7 @@
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 07:17:07 by javgonza          #+#    #+#             */
-/*   Updated: 2021/09/24 08:07:22 by javgonza         ###   ########.fr       */
+/*   Updated: 2021/09/30 10:31:54 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,11 @@ void	builtin_echo(char **args)
 	}
 	while (*args != NULL)
 	{
-		printf("%s", *args);
+		ft_putstr_fd(*args, STDOUT_FILENO);
 		args++;
+		if (*args != NULL)
+			ft_putstr_fd(" ", STDOUT_FILENO);
 	}
 	if (writes_nl)
-		printf("\n");
+		ft_putstr_fd("\n", STDOUT_FILENO);
 }

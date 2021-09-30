@@ -6,7 +6,7 @@
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 04:21:09 by javgonza          #+#    #+#             */
-/*   Updated: 2021/09/26 12:33:50 by javgonza         ###   ########.fr       */
+/*   Updated: 2021/09/28 09:35:09 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ static t_token	*first_token_after_last_token_of_type(t_token_reader *tr,
 	{
 		token = &tr->tokens[i - 1];
 		if (token->type == type)
-			return (&tr->tokens[i]);
+			if (i != tr->token_count)
+				return (&tr->tokens[i]);
 		i--;
 	}
 	return (NULL);

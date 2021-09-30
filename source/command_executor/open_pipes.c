@@ -6,7 +6,7 @@
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 10:35:27 by javgonza          #+#    #+#             */
-/*   Updated: 2021/09/26 12:26:46 by javgonza         ###   ########.fr       */
+/*   Updated: 2021/09/30 08:29:41 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include <sys/stat.h>
 #include <stdio.h>
 #include <unistd.h>
+#include "../../libft/incs/libft.h"
 
 static void	open_command_pipe(t_sentence *sentence, size_t i)
 {

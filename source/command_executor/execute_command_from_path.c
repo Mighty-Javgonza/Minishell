@@ -6,7 +6,7 @@
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 12:37:27 by javgonza          #+#    #+#             */
-/*   Updated: 2021/09/24 08:07:24 by javgonza         ###   ########.fr       */
+/*   Updated: 2021/09/30 09:34:08 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int	execute_command_from_path(char *command_path, char **args, char **env)
 
 	error_code = 0;
 	g_minishell_data.error_code = 0;
+	g_minishell_data.cancelling_command = 0;
 	pid = fork();
 	if (pid == 0)
 	{

@@ -6,7 +6,7 @@
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 10:49:32 by javgonza          #+#    #+#             */
-/*   Updated: 2021/09/24 04:36:54 by javgonza         ###   ########.fr       */
+/*   Updated: 2021/09/30 10:35:12 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int main(int argc, char **argv, char **env)
 	init_minishell_data();
 	copy_env_variables(env);
 	tr = init_token_reader();
-	tr = read_tokens("echo hola | wc | wc");
+	tr = read_tokens("echo hola | wc");
 	exp = expand_tokens(&tr);
 	sentence = parse_sentence(&exp);
 	execute_sentence(&sentence);

@@ -6,7 +6,7 @@
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 10:49:32 by javgonza          #+#    #+#             */
-/*   Updated: 2021/09/15 09:31:37 by javgonza         ###   ########.fr       */
+/*   Updated: 2021/09/28 11:27:59 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int main()
 	command = init_command();
 	command.tr = get_tokens_of_command(&exp, 0);
 	command2 = init_command();
-	command2.tr = get_tokens_of_command(&exp, command.tr.token_count + 1);
+	command2.tr = get_tokens_of_command(&exp, command.tr.token_count);
 	if (!streq(command2.tr.tokens[1].value, "turut"))
 		return (-1);
 	return (0);

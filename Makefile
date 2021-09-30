@@ -51,8 +51,7 @@ dirs: $(BUILD_DIRS)
 
 $(NAME): $(LIBFT) $(OBJ_FILES) $(MAIN)
 	@$(ECHO) Compiling main
-	@$(COMPILER) $(MAIN) -o $(NAME) $(OBJ_FILES) $(LIBFT) -lreadline
-
+	@$(COMPILER) $(MAIN) -o $(NAME) $(OBJ_FILES) $(LIBFT) -lreadline -L /Users/javgonza/.brew/opt/readline/lib
 	@$(ECHO) Compilation Succesful
 
 $(LIBFT):

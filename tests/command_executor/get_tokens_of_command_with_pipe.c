@@ -6,7 +6,7 @@
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 10:49:32 by javgonza          #+#    #+#             */
-/*   Updated: 2021/09/15 09:11:15 by javgonza         ###   ########.fr       */
+/*   Updated: 2021/09/28 11:24:02 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ int main()
 	exp = expand_tokens(&tr);
 	command = init_command();
 	command.tr = get_tokens_of_command(&exp, 0);
-	if (command.tr.token_count != 3)
+ printf("%zu\n", command.tr.token_count);
+	if (command.tr.token_count != 4)
 		return (-1);
 	return (0);
 }

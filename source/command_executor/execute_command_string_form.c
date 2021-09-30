@@ -6,7 +6,7 @@
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 11:07:54 by javgonza          #+#    #+#             */
-/*   Updated: 2021/09/24 08:20:22 by javgonza         ###   ########.fr       */
+/*   Updated: 2021/09/30 10:32:21 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,9 @@ t_builtin	find_builtin_by_name(char *name)
 	while (i < BUILTIN_COUNT)
 	{
 		if (streq((char *)g_builtins[i].name, name))
+		{
 			return (g_builtins[i].builtin);
+		}
 		i++;
 	}
 	return (NULL);
@@ -47,12 +49,14 @@ static void	try_command_on_all_paths(char **path_split, char *command,
 	ft_freearray(path_split);
 }
 
+
 int	execute_command_string_form(char *command, char **args)
 {
 	char		**path_split;
 	t_builtin	builtin;
 	int			executed;
 
+	(void)args;
 	builtin = find_builtin_by_name(args[0]);
 	if (builtin != NULL)
 	{
@@ -60,6 +64,7 @@ int	execute_command_string_form(char *command, char **args)
 		builtin(args);
 		return (0);
 	}
+	executed = 0;
 	executed = execute_command_from_path(command, args, NULL);
 	if (executed != 0)
 	{
@@ -68,6 +73,9 @@ int	execute_command_string_form(char *command, char **args)
 			try_command_on_all_paths(path_split, command, args, &executed);
 	}
 	if (executed != 0)
-		printf(MINISHELL_PROMPT"Comando falla\n");
+	{
+		if (g_minishell_data.cancelling_command != 0)
+			printf(MINISHELL_PROMPT"Comando falla\n");
+	}
 	return (executed);
 }

@@ -6,7 +6,7 @@
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 11:18:02 by javgonza          #+#    #+#             */
-/*   Updated: 2021/09/24 08:37:59 by javgonza         ###   ########.fr       */
+/*   Updated: 2021/09/30 09:17:18 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,4 +22,5 @@ void	init_minishell_data(void)
 	g_minishell_data.extra_variables->name = NULL;
 	g_minishell_data.extra_variables_size = 0;
 	g_minishell_data.default_env_var_count = 27;
+	g_minishell_data.error_code = 0;
 }

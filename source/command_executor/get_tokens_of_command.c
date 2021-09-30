@@ -6,7 +6,7 @@
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 09:04:44 by javgonza          #+#    #+#             */
-/*   Updated: 2021/09/24 08:26:50 by javgonza         ###   ########.fr       */
+/*   Updated: 2021/09/28 11:27:07 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ t_token_reader	get_tokens_of_command(t_token_reader *exp, size_t start_token)
 	while (i < exp->token_count && is_non_ending_token(&exp->tokens[i]))
 		i++;
 	token_count = i - start_token;
+	if (token_count + start_token < exp->token_count)
+		token_count++;
 	tr.token_count = token_count;
 	tr.tokens = malloc(sizeof(*tr.tokens) * (tr.token_count));
 	ft_memmove(tr.tokens, exp->tokens + start_token,

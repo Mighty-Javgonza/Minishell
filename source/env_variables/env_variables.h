@@ -6,7 +6,7 @@
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 11:05:49 by javgonza          #+#    #+#             */
-/*   Updated: 2021/09/24 08:37:37 by javgonza         ###   ########.fr       */
+/*   Updated: 2021/09/27 10:22:12 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ typedef struct s_minishell_data
 	t_env_variable	*extra_variables;
 	size_t			extra_variables_size;
 	int				error_code;
+	int				cancelling_command;
+	int				executing_command;
 }				t_minishell_data;
 
 extern t_minishell_data	g_minishell_data;

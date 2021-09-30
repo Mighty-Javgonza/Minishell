@@ -6,11 +6,12 @@
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 13:21:14 by javgonza          #+#    #+#             */
-/*   Updated: 2021/09/24 08:07:24 by javgonza         ###   ########.fr       */
+/*   Updated: 2021/09/28 12:02:24 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "command_executor.h"
+#include <stdio.h>
 
 void	execute(char *command)
 {
