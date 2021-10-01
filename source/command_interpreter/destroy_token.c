@@ -1,31 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   read_until_line.c                                  :+:      :+:    :+:   */
+/*   destroy_token.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/26 11:22:17 by javgonza          #+#    #+#             */
-/*   Updated: 2021/10/01 08:18:39 by javgonza         ###   ########.fr       */
+/*   Created: 2021/09/30 14:13:25 by javgonza          #+#    #+#             */
+/*   Updated: 2021/09/30 14:14:46 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "command_executor.h"
-#include "../../libft/incs/libft.h"
-#include "../utils/utils.h"
-#include <readline/readline.h>
+#include "command_interpreter.h"
 
-void	read_until_line(int out_fd, char *limit)
+void	destroy_token(t_token *token)
 {
-	char	*line;
-
-	line = NULL;
-	line = readline(">");
-	while (!streq(line, limit))
-	{
-		write(out_fd, line, ft_strlen(line));
-		free(line);
-		line = readline(">");
-	}
-	free(line);
+	free(token->value);
 }

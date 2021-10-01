@@ -6,7 +6,7 @@
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 11:05:49 by javgonza          #+#    #+#             */
-/*   Updated: 2021/09/27 10:22:12 by javgonza         ###   ########.fr       */
+/*   Updated: 2021/10/01 08:43:12 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ typedef struct s_minishell_data
 	int				error_code;
 	int				cancelling_command;
 	int				executing_command;
+	int				command_exists;
 }				t_minishell_data;
 
 extern t_minishell_data	g_minishell_data;

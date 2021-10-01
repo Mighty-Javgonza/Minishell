@@ -27,7 +27,7 @@ ECHO = echo $(PROJECT_ADVISOR)
 LIBFT = libft/libft.a
 
 CC = gcc -g
-COMP_FLAGS = -Wall -Wextra -Werror 
+COMP_FLAGS = -Wall -Wextra -Werror
 COMPILER = $(CC) $(COMP_FLAGS) -D PROJECT_DIR=\"$(PWD)\"
 
 .PHONY: all clean fclean re dirs cleantests test_folder retest_folder update_tags assemble_tests

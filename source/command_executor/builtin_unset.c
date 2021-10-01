@@ -6,7 +6,7 @@
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 07:18:56 by javgonza          #+#    #+#             */
-/*   Updated: 2021/09/24 08:07:23 by javgonza         ###   ########.fr       */
+/*   Updated: 2021/10/01 09:13:20 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,13 @@ void	builtin_unset(char **args)
 	while (*args != NULL)
 	{
 		var = find_env_var(*args);
-		var->is_local = 1;
+		if (var != NULL)
+		{
+			var->is_local = 1;
+			if (var->value != NULL)
+			free(var->value);
+			var->value = ft_strdup("");
+		}
 		args++;
 	}
 }

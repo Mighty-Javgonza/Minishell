@@ -6,7 +6,7 @@
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 11:07:54 by javgonza          #+#    #+#             */
-/*   Updated: 2021/09/30 10:33:42 by javgonza         ###   ########.fr       */
+/*   Updated: 2021/10/01 08:09:01 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ int	execute_command(t_command *command)
 		dup2(command->input_fd, STDIN_FILENO);
 	}
 	execute_command_string_form(args[0], args);
+	ft_freearray(args);
 	restore_stds(dup_out, dup_in, command);
 	return (0);
 }

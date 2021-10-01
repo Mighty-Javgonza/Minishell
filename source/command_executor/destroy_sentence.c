@@ -1,31 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   read_until_line.c                                  :+:      :+:    :+:   */
+/*   destroy_sentence.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/26 11:22:17 by javgonza          #+#    #+#             */
-/*   Updated: 2021/10/01 08:18:39 by javgonza         ###   ########.fr       */
+/*   Created: 2021/09/30 14:09:14 by javgonza          #+#    #+#             */
+/*   Updated: 2021/09/30 14:17:32 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "command_executor.h"
-#include "../../libft/incs/libft.h"
-#include "../utils/utils.h"
-#include <readline/readline.h>
 
-void	read_until_line(int out_fd, char *limit)
+void	destroy_sentence(t_sentence *sentence)
 {
-	char	*line;
+	size_t	i;
 
-	line = NULL;
-	line = readline(">");
-	while (!streq(line, limit))
+	i = 0;
+	while (i < sentence->command_count)
 	{
-		write(out_fd, line, ft_strlen(line));
-		free(line);
-		line = readline(">");
+		destroy_command(&sentence->commands[i]);
+		i++;
 	}
-	free(line);
+	free(sentence->commands);
 }

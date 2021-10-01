@@ -6,7 +6,7 @@
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 11:27:08 by javgonza          #+#    #+#             */
-/*   Updated: 2021/09/28 09:38:45 by javgonza         ###   ########.fr       */
+/*   Updated: 2021/10/01 08:15:47 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ static void	add_command(t_sentence *sentence, t_command *command)
 		sizeof(*sentence->commands) * sentence->command_count);
 	sentence->commands[sentence->command_count] = *command;
 	sentence->command_count++;
+	free(old_commands);
 }
 
 void	parse_commands_of_sentence(t_sentence *sentence, t_token_reader *tr)

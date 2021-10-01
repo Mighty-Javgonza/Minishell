@@ -6,7 +6,7 @@
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 10:49:32 by javgonza          #+#    #+#             */
-/*   Updated: 2021/09/30 08:56:50 by javgonza         ###   ########.fr       */
+/*   Updated: 2021/10/01 09:18:50 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,9 @@
 
 # define OUTPUT_REDIRS (TOKEN_TYPE_REDIRECT_OUTPUT | TOKEN_TYPE_REDIRECT_OUTPUT_APPEND)
 # define INPUT_REDIRS (TOKEN_TYPE_REDIRECT_INPUT | TOKEN_TYPE_REDIRECT_INPUT_DELIMITER)
+
+#define ERROR_COMMAND_NOT_FOUND 127
+#define ERROR_NO_SUCH_FILE_OR_DIRECTORY 1
 
 typedef struct s_command
 {
@@ -72,6 +75,9 @@ void			builtin_env(char **args);
 void			builtin_pwd(char **args);
 void			builtin_unset(char **args);
 void			read_until_line(int out_fd, char *limit);
+
+void	destroy_sentence(t_sentence *sentence);
+void	destroy_command(t_command *command);
 
 static const t_named_builtin	g_builtins[BUILTIN_COUNT] = {
 	{builtin_authors, "authors"},

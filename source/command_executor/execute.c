@@ -6,7 +6,7 @@
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 13:21:14 by javgonza          #+#    #+#             */
-/*   Updated: 2021/09/28 12:02:24 by javgonza         ###   ########.fr       */
+/*   Updated: 2021/10/01 08:15:57 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,4 +24,7 @@ void	execute(char *command)
 	exp = expand_tokens(&tr);
 	sentence = parse_sentence(&exp);
 	execute_sentence(&sentence);
+	destroy_sentence(&sentence);
+	destroy_token_reader(&tr);
+	destroy_token_reader(&exp);
 }
