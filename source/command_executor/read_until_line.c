@@ -6,7 +6,7 @@
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/26 11:22:17 by javgonza          #+#    #+#             */
-/*   Updated: 2021/10/01 08:18:39 by javgonza         ###   ########.fr       */
+/*   Updated: 2021/10/01 10:01:50 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	read_until_line(int out_fd, char *limit)
 	while (!streq(line, limit))
 	{
 		write(out_fd, line, ft_strlen(line));
+		write(out_fd, "\n", 1);
 		free(line);
 		line = readline(">");
 	}

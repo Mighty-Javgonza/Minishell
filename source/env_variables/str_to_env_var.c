@@ -6,7 +6,7 @@
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 13:18:44 by javgonza          #+#    #+#             */
-/*   Updated: 2021/09/24 08:07:36 by javgonza         ###   ########.fr       */
+/*   Updated: 2021/10/03 10:51:49 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,20 @@ t_env_variable	str_to_env_var(char *var)
 {
 	t_env_variable	env_var;
 	char			**split;
+	char			*var_name;
 
 	env_var.name = NULL;
-	if (var == NULL)
+	if (var == NULL || *var == '\0')
 		return (env_var);
 	split = ft_split(var, '=');
 	if (split[1] == NULL)
 	{
-		ft_freearray(split);
-		return (env_var);
+		var_name = split[0];
+		free(split);
+		split = malloc(sizeof(*split) * 3);
+		split[0] = var_name;
+		split[1] = ft_strdup("");
+		split[2] = NULL;
 	}
 	env_var.name = split[0];
 	env_var.value = split[1];

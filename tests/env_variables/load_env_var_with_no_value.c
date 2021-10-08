@@ -5,22 +5,25 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/10 09:54:33 by javgonza          #+#    #+#             */
-/*   Updated: 2021/10/01 11:57:19 by javgonza         ###   ########.fr       */
+/*   Created: 2021/09/07 11:05:49 by javgonza          #+#    #+#             */
+/*   Updated: 2021/10/03 10:43:44 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../tests.h"
 
-int main()
+int main(int argc, char **argv, char **env)
 {
-	//t_token_reader	tr;
+	t_env_variable	*var;
 
-//	tr = read_tokens("\"echo\" hola");
-	char	*end;
-
-	end	 = get_token_end("\"echo\" hola");
-	if (*end != '"')
+	(void)argc;
+	(void)argv;
+	(void)env;
+	init_minishell_data();
+	copy_env_variables(env);
+	load_env_variable("CUSTOM");
+	var = find_env_var("CUSTOM");
+	if (var == NULL)
 		return (-1);
 	return (0);
 }

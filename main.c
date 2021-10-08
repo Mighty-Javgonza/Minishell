@@ -6,7 +6,7 @@
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 10:06:49 by javgonza          #+#    #+#             */
-/*   Updated: 2021/10/01 08:55:21 by javgonza         ###   ########.fr       */
+/*   Updated: 2021/10/07 10:01:41 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	ctrl_bar(int a)
 	}
 	else
 	{
-	write(1, "sig quit", 8);
+		write(1, "sig quit", 8);
 		write(1, "\n", 1);
 	}
 }
@@ -78,10 +78,10 @@ int	main(int argc, char **argv, char **env)
 	action.sa_handler = &ctrl_c;
 	(void)argc;
 	(void)argv;
-	//signal(SIGINT, ctrl_c);
 	sigaction(SIGINT, &action, NULL);
 	signal(SIGQUIT, ctrl_bar);
 	init_minishell_data();
 	copy_env_variables(env);
+	increment_shell_level();
 	wait_loop();
 }

@@ -6,7 +6,7 @@
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 13:02:33 by javgonza          #+#    #+#             */
-/*   Updated: 2021/09/24 08:41:16 by javgonza         ###   ########.fr       */
+/*   Updated: 2021/10/08 09:01:59 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	load_extra_variable(char *new_var)
 		g_minishell_data.extra_variables[i].name = ft_strdup(old_vars[i].name);
 		g_minishell_data.extra_variables[i].value
 			= ft_strdup(old_vars[i].value);
+		g_minishell_data.extra_variables[i].is_local = 0;
 		i++;
 	}
 	g_minishell_data.extra_variables[i] = str_to_env_var(new_var);

@@ -6,7 +6,7 @@
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 11:07:54 by javgonza          #+#    #+#             */
-/*   Updated: 2021/10/01 09:00:19 by javgonza         ###   ########.fr       */
+/*   Updated: 2021/10/08 09:08:13 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,27 +32,40 @@ t_builtin	find_builtin_by_name(char *name)
 	return (NULL);
 }
 
-static void	try_command_on_all_paths(char **path_split, char *command,
-			char **args, int *executed)
+static void	try_command_on_all_paths(char *command,
+			char **args, int *executed, char **env)
 {
 	size_t	i;
+	char	**path_split;
 
+	path_split = ft_split(g_minishell_data.path.value, ':');
+	if (path_split == NULL)
+		return ;
 	i = 0;
-	while (*executed == 0 && path_split[i] != NULL)
+	while (*executed == 0 && path_split[i] != NULL && g_minishell_data.error_code != ERROR_IS_A_DIRECTORY)
 	{
 		*executed = try_to_execute_command_on_folder(path_split[i],
-				command, args, NULL);
+				command, args, env);
 		i++;
 	}
 	ft_freearray(path_split);
 }
 
+static void	print_error_message(char *command)
+{
+	if (g_minishell_data.error_code == ERROR_COMMAND_NOT_FOUND)
+		printf(MINISHELL_PROMPT"El comando %s no existe\n", command);
+	else if (g_minishell_data.error_code == ERROR_IS_A_DIRECTORY)
+		printf(MINISHELL_PROMPT"%s es un directorio\n", command);
+	else if (!g_minishell_data.cancelling_command)
+		printf(MINISHELL_PROMPT"Comando falla\n");
+}
 
 int	execute_command_string_form(char *command, char **args)
 {
-	char		**path_split;
 	t_builtin	builtin;
 	int			executed;
+	char		**env;
 
 	(void)args;
 	builtin = find_builtin_by_name(args[0]);
@@ -63,19 +76,12 @@ int	execute_command_string_form(char *command, char **args)
 		return (0);
 	}
 	executed = 0;
-	executed = execute_command_from_path(command, args, NULL);
+	env = env_vars_to_arr();
+	executed = execute_command_from_path(command, args, env);
 	if (executed == 0)
-	{
-		path_split = ft_split(g_minishell_data.path.value, ':');
-		if (path_split != NULL)
-			try_command_on_all_paths(path_split, command, args, &executed);
-	}
+		try_command_on_all_paths(command, args, &executed, env);
 	if (executed == 0)
-	{
-		if (g_minishell_data.error_code == ERROR_COMMAND_NOT_FOUND)
-			printf(MINISHELL_PROMPT"El comando %s no existe\n", command);
-		else if (!g_minishell_data.cancelling_command)
-			printf(MINISHELL_PROMPT"Comando falla\n");
-	}
+		print_error_message(command);
+	ft_freearray(env);
 	return (executed);
 }

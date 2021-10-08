@@ -6,7 +6,7 @@
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 11:18:02 by javgonza          #+#    #+#             */
-/*   Updated: 2021/10/01 08:36:00 by javgonza         ###   ########.fr       */
+/*   Updated: 2021/10/07 08:55:05 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	init_minishell_data(void)
 			sizeof(*g_minishell_data.extra_variables));
 	g_minishell_data.extra_variables->name = NULL;
 	g_minishell_data.extra_variables_size = 0;
-	g_minishell_data.default_env_var_count = 27;
+	g_minishell_data.default_env_var_count = 6;
 	g_minishell_data.error_code = 0;
 	g_minishell_data.command_exists = 0;
 }

@@ -6,7 +6,7 @@
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/10 09:54:33 by javgonza          #+#    #+#             */
-/*   Updated: 2021/09/30 14:15:03 by javgonza         ###   ########.fr       */
+/*   Updated: 2021/10/05 11:51:02 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,9 @@ t_token_reader	expand_tokens(t_token_reader *tr);
 void			add_expansion_to_reader(t_token_reader *tr, t_token *token);
 char			*get_first_escaped_char(char *string);
 void			expand_variables(t_token *token);
-void	destroy_token(t_token *token);
-void	destroy_token_reader(t_token_reader *tr);
+void			destroy_token(t_token *token);
+void			destroy_token_reader(t_token_reader *tr);
+char			*find_first_var(char *search_start, int *is_inside_dquote);
+char			*expand_error_var(char *string, char *var_start);
 
 #endif

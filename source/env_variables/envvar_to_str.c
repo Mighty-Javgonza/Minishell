@@ -1,26 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   zz_temp_test.c                                     :+:      :+:    :+:   */
+/*   envvar_to_str.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/10 09:54:33 by javgonza          #+#    #+#             */
-/*   Updated: 2021/10/01 11:57:19 by javgonza         ###   ########.fr       */
+/*   Created: 2021/10/07 08:52:00 by javgonza          #+#    #+#             */
+/*   Updated: 2021/10/07 08:52:00 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../tests.h"
+#include "env_variables.h"
 
-int main()
+char	*envvar_to_str(t_env_variable *envvar)
 {
-	//t_token_reader	tr;
+	char	*rvalue;
+	char	*tmp;
 
-//	tr = read_tokens("\"echo\" hola");
-	char	*end;
-
-	end	 = get_token_end("\"echo\" hola");
-	if (*end != '"')
-		return (-1);
-	return (0);
+	tmp = ft_strjoin(envvar->name, "=");
+	rvalue = ft_strjoin(tmp, envvar->value);
+	free(tmp);
+	return (rvalue);
 }

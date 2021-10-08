@@ -1,26 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   zz_temp_test.c                                     :+:      :+:    :+:   */
+/*   print_argc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/10 09:54:33 by javgonza          #+#    #+#             */
-/*   Updated: 2021/10/01 11:57:19 by javgonza         ###   ########.fr       */
+/*   Created: 2021/10/07 09:12:18 by javgonza          #+#    #+#             */
+/*   Updated: 2021/10/07 09:12:54 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../tests.h"
+#include <stdio.h>
 
-int main()
+int	main(int argc, char **argv, char **env)
 {
-	//t_token_reader	tr;
+	(void)env;
+	(void)argv;
 
-//	tr = read_tokens("\"echo\" hola");
-	char	*end;
-
-	end	 = get_token_end("\"echo\" hola");
-	if (*end != '"')
-		return (-1);
-	return (0);
+	printf("%d\n", argc);
 }

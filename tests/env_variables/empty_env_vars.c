@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/10 09:54:33 by javgonza          #+#    #+#             */
-/*   Updated: 2021/10/01 11:57:19 by javgonza         ###   ########.fr       */
+/*   Created: 2021/09/07 11:05:49 by javgonza          #+#    #+#             */
+/*   Updated: 2021/10/05 12:25:11 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,11 @@
 
 int main()
 {
-	//t_token_reader	tr;
+	char	**env;
 
-//	tr = read_tokens("\"echo\" hola");
-	char	*end;
-
-	end	 = get_token_end("\"echo\" hola");
-	if (*end != '"')
+	init_minishell_data();
+	env = env_vars_to_arr();
+	if (env[0] != NULL)
 		return (-1);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 10:49:32 by javgonza          #+#    #+#             */
-/*   Updated: 2021/10/01 09:18:50 by javgonza         ###   ########.fr       */
+/*   Updated: 2021/10/07 11:15:23 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,15 @@
 # define COMMAND_EXECUTOR_H
 
 # define MINISHELL_PROMPT "minishell dice:"
- 
+
 # include "../command_interpreter/command_interpreter.h"
 
-# define OUTPUT_REDIRS (TOKEN_TYPE_REDIRECT_OUTPUT | TOKEN_TYPE_REDIRECT_OUTPUT_APPEND)
-# define INPUT_REDIRS (TOKEN_TYPE_REDIRECT_INPUT | TOKEN_TYPE_REDIRECT_INPUT_DELIMITER)
+# define OUTPUT_REDIRS (0b1100)
+# define INPUT_REDIRS (0b10010)
 
-#define ERROR_COMMAND_NOT_FOUND 127
-#define ERROR_NO_SUCH_FILE_OR_DIRECTORY 1
+# define ERROR_COMMAND_NOT_FOUND 127
+# define ERROR_NO_SUCH_FILE_OR_DIRECTORY 1
+# define ERROR_IS_A_DIRECTORY 126
 
 typedef struct s_command
 {
@@ -51,8 +52,10 @@ typedef struct s_named_builtin
 # define BUILTIN_COUNT 8
 
 int				execute_command_string_form(char *command, char **args);
-int				execute_command_from_path(char *command_path, char **args, char **env);
-int				try_to_execute_command_on_folder(char *path, char *command, char **args, char **env);
+int				execute_command_from_path(char *command_path, char **args,
+					char **env);
+int				try_to_execute_command_on_folder(char *path, char *command,
+					char **args, char **env);
 char			**get_args_from_tokens(t_token_reader *tr, size_t start);
 t_command		init_command(void);
 void			get_command_from_tokens(t_command *command);
@@ -62,7 +65,8 @@ t_sentence		init_sentence(void);
 t_sentence		parse_sentence(t_token_reader *tr);
 void			open_pipes(t_sentence *sentence);
 int				execute_sentence(t_sentence *sentence);
-void			parse_commands_of_sentence(t_sentence *sentence, t_token_reader *tr);
+void			parse_commands_of_sentence(t_sentence *sentence,
+					t_token_reader *tr);
 void			execute(char *command);
 void			set_redirect_type(t_command *command);
 void			set_redirect_names(t_command *command);
@@ -75,11 +79,18 @@ void			builtin_env(char **args);
 void			builtin_pwd(char **args);
 void			builtin_unset(char **args);
 void			read_until_line(int out_fd, char *limit);
+void			destroy_sentence(t_sentence *sentence);
+void			destroy_command(t_command *command);
+void			open_command_pipe(t_sentence *sentence, size_t i);
+void			open_command_out_redirection(t_sentence *sentence, size_t i);
+void			open_command_out_append_redirection(t_sentence *sentence,
+					size_t i);
+void			open_command_in_delimiter_redirection(t_sentence *sentence,
+					size_t i);
+void			open_command_in_redirection(t_sentence *sentence, size_t i);
 
-void	destroy_sentence(t_sentence *sentence);
-void	destroy_command(t_command *command);
-
-static const t_named_builtin	g_builtins[BUILTIN_COUNT] = {
+static const	t_named_builtin
+				g_builtins[BUILTIN_COUNT] = {
 	{builtin_authors, "authors"},
 	{builtin_echo, "echo"},
 	{builtin_exit, "exit"},

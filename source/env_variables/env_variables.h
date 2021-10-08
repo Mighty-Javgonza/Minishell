@@ -6,7 +6,7 @@
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 11:05:49 by javgonza          #+#    #+#             */
-/*   Updated: 2021/10/01 08:43:12 by javgonza         ###   ########.fr       */
+/*   Updated: 2021/10/07 10:01:21 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,30 +27,9 @@ typedef struct s_minishell_data
 	t_env_variable	term_program;
 	t_env_variable	term;
 	t_env_variable	shell;
-	t_env_variable	tmpdir;
-	t_env_variable	apple_pubsub_socket_render;
-	t_env_variable	term_program_version;
-	t_env_variable	term_session_id;
-	t_env_variable	user;
-	t_env_variable	command_mode;
-	t_env_variable	ssh_auth_sock;
-	t_env_variable	__cf_user_text_encoding;
 	t_env_variable	path;
 	t_env_variable	pwd;
-	t_env_variable	lang;
-	t_env_variable	iterm_profile;
-	t_env_variable	xpc_flags;
-	t_env_variable	xpc_service_name;
-	t_env_variable	shlvl;
 	t_env_variable	home;
-	t_env_variable	colorfgbg;
-	t_env_variable	lc_terminal_version;
-	t_env_variable	iterm_session_id;
-	t_env_variable	logname;
-	t_env_variable	lc_terminal;
-	t_env_variable	securitysessionid;
-	t_env_variable	colorterm;
-	t_env_variable	_;
 	size_t			default_env_var_count;
 	t_env_variable	*extra_variables;
 	size_t			extra_variables_size;
@@ -81,5 +60,8 @@ void				set_path(char *name, char *value);
 void				set_home(char *name, char *value);
 void				load_env_variable(char *var);
 void				set_pwd(char *name, char *value);
+char				**env_vars_to_arr(void);
+char				*envvar_to_str(t_env_variable *envvar);
+void				increment_shell_level();
 
 #endif

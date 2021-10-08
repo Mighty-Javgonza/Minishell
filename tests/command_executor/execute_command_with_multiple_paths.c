@@ -6,7 +6,7 @@
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 10:49:32 by javgonza          #+#    #+#             */
-/*   Updated: 2021/09/15 09:08:26 by javgonza         ###   ########.fr       */
+/*   Updated: 2021/10/03 08:39:28 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int main()
 	args[0] = "hello_world.out";
 	args[1] = NULL;
 	res = execute_command_string_form("hello_world.out", args);
-	if (res != 0)
+	if (res != 1)
 		return (-1);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 12:37:27 by javgonza          #+#    #+#             */
-/*   Updated: 2021/10/01 09:01:22 by javgonza         ###   ########.fr       */
+/*   Updated: 2021/10/07 11:20:28 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,19 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include "../env_variables/env_variables.h"
+#include <dirent.h>
 
 static int	check_path_is_valid(char *path)
 {
 	int	fd;
+	DIR	*is_dir;
 
+	is_dir = opendir(path);
+	if (is_dir != NULL)
+	{
+		closedir(is_dir);
+		return (-1);
+	}
 	fd = open(path, O_RDONLY);
 	if (fd < 2)
 		return (0);
@@ -44,6 +52,11 @@ int	execute_command_from_path(char *command_path, char **args, char **env)
 	if (g_minishell_data.command_exists == 0)
 	{
 		g_minishell_data.error_code = ERROR_COMMAND_NOT_FOUND;
+		return (0);
+	}
+	else if (g_minishell_data.command_exists == -1)
+	{
+		g_minishell_data.error_code = ERROR_IS_A_DIRECTORY;
 		return (0);
 	}
 	pid = fork();

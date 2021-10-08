@@ -1,26 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   zz_temp_test.c                                     :+:      :+:    :+:   */
+/*   expand_error_var.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/10 09:54:33 by javgonza          #+#    #+#             */
-/*   Updated: 2021/10/01 11:57:19 by javgonza         ###   ########.fr       */
+/*   Created: 2021/10/05 11:40:56 by javgonza          #+#    #+#             */
+/*   Updated: 2021/10/05 11:41:56 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../tests.h"
+#include "command_interpreter.h"
+#include "../env_variables/env_variables.h"
+#include "../utils/utils.h"
 
-int main()
+char	*expand_error_var(char *string, char *var_start)
 {
-	//t_token_reader	tr;
+	char	*error;
+	char	*new_val;
 
-//	tr = read_tokens("\"echo\" hola");
-	char	*end;
-
-	end	 = get_token_end("\"echo\" hola");
-	if (*end != '"')
-		return (-1);
-	return (0);
+	error = ft_itoa(g_minishell_data.error_code);
+	new_val = subst_substr(string, var_start, var_start + 1, error);
+	free(error);
+	return (new_val);
 }

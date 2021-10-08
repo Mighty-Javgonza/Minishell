@@ -6,7 +6,7 @@
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/10 10:47:01 by javgonza          #+#    #+#             */
-/*   Updated: 2021/09/24 08:35:50 by javgonza         ###   ########.fr       */
+/*   Updated: 2021/10/01 12:24:47 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,8 @@ char	*get_token_end(char *token_start)
 		token_end = str_unsc_set(loop_start, " \t\"'"TOKEN_SPECIAL_CHARS);
 		end_found = move_pointer_to_token_end(&token_end, loop_start);
 		loop_start = token_end + 1;
+		if (loop_start == (char *)1 || *loop_start == ' ')
+			break ;
 		if (token_end == NULL)
 			break ;
 	}

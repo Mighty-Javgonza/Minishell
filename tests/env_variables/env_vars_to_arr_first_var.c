@@ -5,22 +5,24 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/10 09:54:33 by javgonza          #+#    #+#             */
-/*   Updated: 2021/10/01 11:57:19 by javgonza         ###   ########.fr       */
+/*   Created: 2021/09/07 11:05:49 by javgonza          #+#    #+#             */
+/*   Updated: 2021/10/07 09:00:48 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../tests.h"
 
-int main()
+#define VAR "HOLA=sisi"
+
+int	main()
 {
-	//t_token_reader	tr;
+	char	**new_env;
 
-//	tr = read_tokens("\"echo\" hola");
-	char	*end;
-
-	end	 = get_token_end("\"echo\" hola");
-	if (*end != '"')
+	init_minishell_data();
+	load_env_variable(VAR);
+	export_var("HOLA");
+	new_env = env_vars_to_arr();
+	if (!streq(VAR, new_env[0]))
 		return (-1);
 	return (0);
 }

@@ -1,26 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   zz_temp_test.c                                     :+:      :+:    :+:   */
+/*   open_command_pipe.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/10 09:54:33 by javgonza          #+#    #+#             */
-/*   Updated: 2021/10/01 11:57:19 by javgonza         ###   ########.fr       */
+/*   Created: 2021/10/01 10:36:05 by javgonza          #+#    #+#             */
+/*   Updated: 2021/10/01 10:36:20 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../tests.h"
+#include "command_executor.h"
+#include <unistd.h>
 
-int main()
+void	open_command_pipe(t_sentence *sentence, size_t i)
 {
-	//t_token_reader	tr;
+	int	pipe_fds[2];
 
-//	tr = read_tokens("\"echo\" hola");
-	char	*end;
-
-	end	 = get_token_end("\"echo\" hola");
-	if (*end != '"')
-		return (-1);
-	return (0);
+	pipe(pipe_fds);
+	sentence->commands[i].output_fd = pipe_fds[1];
+	sentence->commands[i + 1].input_fd = pipe_fds[0];
 }

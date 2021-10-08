@@ -6,7 +6,7 @@
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 07:14:04 by javgonza          #+#    #+#             */
-/*   Updated: 2021/10/01 09:25:18 by javgonza         ###   ########.fr       */
+/*   Updated: 2021/10/03 10:14:57 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@
 
 void	builtin_cd(char **args)
 {
-	int	error;
+	int		error;
+	char	path[10000];
 
 	if (args[1] == NULL)
 	{
@@ -30,7 +31,11 @@ void	builtin_cd(char **args)
 	{
 		error = chdir(args[1]);
 		if (error == 0)
-			set_variable("PWD", args[1]);
+		{
+			set_variable("OLDPWD", g_minishell_data.pwd.value);
+			getcwd(path, 10000);
+			set_variable("PWD", path);
+		}
 	}
 	if (error != 0)
 	{

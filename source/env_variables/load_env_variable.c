@@ -6,7 +6,7 @@
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 11:21:55 by javgonza          #+#    #+#             */
-/*   Updated: 2021/09/24 08:49:14 by javgonza         ###   ########.fr       */
+/*   Updated: 2021/10/07 08:51:25 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,20 @@ static void	set_def_var(char **split)
 void	load_env_variable(char *var)
 {
 	char			**split;
+	char			*var_name;
 	t_env_variable	*existing_var;
 
-	if (var == NULL)
+	if (var == NULL || *var == '\0')
 		return ;
 	split = ft_split(var, '=');
 	if (split[1] == NULL)
 	{
+		var_name = ft_strdup(split[0]);
 		ft_freearray(split);
-		return ;
+		split = malloc(sizeof(*split) * 3);
+		split[0] = var_name;
+		split[1] = ft_strdup("");
+		split[2] = NULL;
 	}
 	set_def_var(split);
 	existing_var = find_default_var(split[0]);
