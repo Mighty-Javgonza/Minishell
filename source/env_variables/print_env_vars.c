@@ -6,7 +6,7 @@
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 13:33:48 by javgonza          #+#    #+#             */
-/*   Updated: 2021/10/08 09:02:28 by javgonza         ###   ########.fr       */
+/*   Updated: 2021/10/10 11:20:32 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ void	print_env_vars(void)
 	i = 0;
 	while (i < g_minishell_data.extra_variables_size)
 	{
-
 		print_one_var(g_minishell_data.extra_variables[i]);
 		i++;
 	}

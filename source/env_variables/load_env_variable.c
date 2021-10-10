@@ -6,7 +6,7 @@
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 11:21:55 by javgonza          #+#    #+#             */
-/*   Updated: 2021/10/08 15:55:15 by javgonza         ###   ########.fr       */
+/*   Updated: 2021/10/10 11:54:23 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,38 +26,47 @@ static void	set_def_var(char **split)
 	set_pwd(split[0], split[1]);
 }
 
+static void	set_split_to_empty_var(char ***split)
+{
+	char	*var_name;
+
+	var_name = ft_strdup((*split)[0]);
+	ft_freearray(*split);
+	*split = malloc(sizeof(*split) * 3);
+	(*split)[0] = var_name;
+	(*split)[1] = ft_strdup("");
+	(*split)[2] = NULL;
+}
+
+static void	load_as_extra_variable(char **split, char *var)
+{
+	t_env_variable	*existing_var;
+
+	existing_var = find_extra_var(split[0]);
+	if (existing_var == NULL)
+		load_extra_variable(var);
+	else
+		set_variable(split[0], split[1]);
+}
+
 void	load_env_variable(char *var)
 {
 	char			**split;
-	char			*var_name;
 	t_env_variable	*existing_var;
 
 	if (var == NULL || *var == '\0')
 		return ;
-	if (ft_isdigit(var[0]))
+	if (ft_isdigit(var[0]) || str_invalid_var_char(var) != NULL)
 	{
 		printf(MINISHELL_PROMPT"no es un identificador válido\n");
 		return ;
 	}
 	split = ft_split(var, '=');
 	if (split[1] == NULL)
-	{
-		var_name = ft_strdup(split[0]);
-		ft_freearray(split);
-		split = malloc(sizeof(*split) * 3);
-		split[0] = var_name;
-		split[1] = ft_strdup("");
-		split[2] = NULL;
-	}
+		set_split_to_empty_var(&split);
 	set_def_var(split);
 	existing_var = find_default_var(split[0]);
 	if (existing_var == NULL)
-	{
-		existing_var = find_extra_var(split[0]);
-		if (existing_var == NULL)
-			load_extra_variable(var);
-		else
-			set_variable(split[0], split[1]);
-	}
+		load_as_extra_variable(split, var);
 	ft_freearray(split);
 }

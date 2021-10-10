@@ -6,14 +6,14 @@
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/07 09:50:56 by javgonza          #+#    #+#             */
-/*   Updated: 2021/10/07 09:59:26 by javgonza         ###   ########.fr       */
+/*   Updated: 2021/10/10 11:20:31 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env_variables.h"
 #include "../../libft/incs/libft.h"
 
-void	increment_shell_level()
+void	increment_shell_level(void)
 {
 	char			*tmp;
 	char			*new_value;

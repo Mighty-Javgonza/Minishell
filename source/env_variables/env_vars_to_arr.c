@@ -6,15 +6,15 @@
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 12:23:07 by javgonza          #+#    #+#             */
-/*   Updated: 2021/10/08 11:46:23 by javgonza         ###   ########.fr       */
+/*   Updated: 2021/10/10 11:36:05 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env_variables.h"
 
-static size_t	count_env()
+static size_t	count_env(void)
 {
-	size_t	i;
+	size_t			i;
 	size_t			count;
 	t_env_variable	*var;
 
@@ -31,11 +31,10 @@ static size_t	count_env()
 	var = g_minishell_data.extra_variables;
 	while (i < g_minishell_data.extra_variables_size)
 	{
-		if (var[i].value != NULL && var[i].is_local == 0)	
+		if (var[i].value != NULL && var[i].is_local == 0)
 			count++;
 		i++;
 	}
-
 	return (count);
 }
 
@@ -64,6 +63,7 @@ static void	copy_default_variables(char **env)
 	t_env_variable	*var;
 	size_t			i;
 	size_t			loaded_vars;
+	size_t			index;
 
 	i = 0;
 	loaded_vars = 0;
@@ -72,7 +72,8 @@ static void	copy_default_variables(char **env)
 	{
 		if (var[i].is_local == 0 && var[i].value != NULL)
 		{
-			env[loaded_vars + g_minishell_data.extra_variables_size] = envvar_to_str(&var[i]);
+			index = loaded_vars + g_minishell_data.extra_variables_size;
+			env[index] = envvar_to_str(&var[i]);
 			loaded_vars++;
 		}
 		i++;

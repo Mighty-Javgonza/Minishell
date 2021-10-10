@@ -6,7 +6,7 @@
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 12:37:27 by javgonza          #+#    #+#             */
-/*   Updated: 2021/10/08 12:07:35 by javgonza         ###   ########.fr       */
+/*   Updated: 2021/10/10 11:32:53 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,8 @@ static int	check_path_is_valid(char *path)
 	}
 }
 
-int	execute_command_from_path(char *command_path, char **args, char **env)
+static int	validate_command(char *command_path)
 {
-	pid_t	pid;
-	int		error_code;
-
-	error_code = 0;
 	g_minishell_data.error_code = 0;
 	g_minishell_data.cancelling_command = 0;
 	g_minishell_data.command_exists = check_path_is_valid(command_path);
@@ -59,6 +55,19 @@ int	execute_command_from_path(char *command_path, char **args, char **env)
 		g_minishell_data.error_code = ERROR_IS_A_DIRECTORY;
 		return (0);
 	}
+	return (1);
+}
+
+int	execute_command_from_path(char *command_path, char **args, char **env)
+{
+	pid_t	pid;
+	int		error_code;
+	int		command_is_valid;
+
+	error_code = 0;
+	command_is_valid = validate_command(command_path);
+	if (command_is_valid == 0)
+		return (0);
 	pid = fork();
 	if (pid == 0)
 	{

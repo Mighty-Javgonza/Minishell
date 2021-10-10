@@ -6,7 +6,7 @@
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 11:10:57 by javgonza          #+#    #+#             */
-/*   Updated: 2021/10/05 11:11:40 by javgonza         ###   ########.fr       */
+/*   Updated: 2021/10/10 11:24:13 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	switch_is_inside_dquote(char *search_start, int *is_inside_dquote)
 		(*is_inside_dquote) = !(*is_inside_dquote);
 }
 
-static char *advance_search_start(char *search_start, int *is_inside_dquote)
+static char	*advance_search_start(char *search_start, int *is_inside_dquote)
 {
 	search_start = str_unsc_set(search_start, "$'\"");
 	switch_is_inside_dquote(search_start, is_inside_dquote);

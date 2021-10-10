@@ -6,7 +6,7 @@
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 11:07:54 by javgonza          #+#    #+#             */
-/*   Updated: 2021/10/10 10:14:00 by javgonza         ###   ########.fr       */
+/*   Updated: 2021/10/10 11:51:22 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ static void	try_command_on_all_paths(char *command,
 	if (path_split == NULL)
 		return ;
 	i = 0;
-	while (*executed == 0 && path_split[i] != NULL && g_minishell_data.error_code != ERROR_IS_A_DIRECTORY)
+	while (*executed == 0 && path_split[i] != NULL
+		&& g_minishell_data.error_code != ERROR_NO_SUCH_FILE_OR_DIRECTORY)
 	{
 		*executed = try_to_execute_command_on_folder(path_split[i],
 				command, args, env);
@@ -59,8 +60,6 @@ static void	print_error_message(char *command)
 		printf(MINISHELL_PROMPT"%s es un directorio\n", command);
 	else if (g_minishell_data.error_code == ERROR_SEGFAULT)
 		printf(MINISHELL_PROMPT"Segmentation fault\n");
-//	else if (!g_minishell_data.cancelling_command)
-//		printf(MINISHELL_PROMPT"Comando falla\n");
 }
 
 int	execute_command_string_form(char *command, char **args)

@@ -6,7 +6,7 @@
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 07:14:04 by javgonza          #+#    #+#             */
-/*   Updated: 2021/10/08 11:24:02 by javgonza         ###   ########.fr       */
+/*   Updated: 2021/10/10 11:27:40 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,15 @@
 #include <stdlib.h>
 #include "../env_variables/env_variables.h"
 #include "../utils/utils.h"
+
+static void	print_error(char **args)
+{
+	g_minishell_data.error_code = ERROR_NO_SUCH_FILE_OR_DIRECTORY;
+	if (args[1] != NULL)
+		printf("cd: %s No such file or directory\n", args[1]);
+	else
+		printf("cd: Home directory not set\n");
+}
 
 void	builtin_cd(char **args)
 {
@@ -38,11 +47,5 @@ void	builtin_cd(char **args)
 		}
 	}
 	if (error != 0)
-	{
-		g_minishell_data.error_code = ERROR_NO_SUCH_FILE_OR_DIRECTORY;
-		if (args[1] != NULL)
-			printf("cd: %s No such file or directory\n", args[1]);
-		else
-			printf("cd: Home directory not set\n");
-	}
+		print_error(args);
 }

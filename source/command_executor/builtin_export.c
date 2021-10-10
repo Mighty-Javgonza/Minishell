@@ -6,7 +6,7 @@
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 07:16:11 by javgonza          #+#    #+#             */
-/*   Updated: 2021/10/07 12:28:16 by javgonza         ###   ########.fr       */
+/*   Updated: 2021/10/10 11:21:13 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,12 @@
 #include "../env_variables/env_variables.h"
 #include "../utils/utils.h"
 
-static void print_export_var(t_env_variable *var)
+static void	print_export_var(t_env_variable *var)
 {
 	printf("export %s='%s'\n", var->name, var->value);
 }
 
-static void	print_export()
+static void	print_export(void)
 {
 	size_t			i;
 	t_env_variable	*var;

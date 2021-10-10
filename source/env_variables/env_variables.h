@@ -6,7 +6,7 @@
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 11:05:49 by javgonza          #+#    #+#             */
-/*   Updated: 2021/10/07 10:01:21 by javgonza         ###   ########.fr       */
+/*   Updated: 2021/10/10 11:20:29 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,6 @@ void				load_env_variable(char *var);
 void				set_pwd(char *name, char *value);
 char				**env_vars_to_arr(void);
 char				*envvar_to_str(t_env_variable *envvar);
-void				increment_shell_level();
+void				increment_shell_level(void);
 
 #endif

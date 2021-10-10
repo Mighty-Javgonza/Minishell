@@ -6,7 +6,7 @@
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 13:21:14 by javgonza          #+#    #+#             */
-/*   Updated: 2021/10/03 10:09:50 by javgonza         ###   ########.fr       */
+/*   Updated: 2021/10/10 11:20:16 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,11 @@ void	execute(char *command)
 
 	tr = init_token_reader();
 	tr = read_tokens(command);
+	if (tr.token_count == 0)
+	{
+		destroy_token_reader(&tr);
+		return ;
+	}
 	exp = expand_tokens(&tr);
 	sentence = parse_sentence(&exp);
 	execute_sentence(&sentence);

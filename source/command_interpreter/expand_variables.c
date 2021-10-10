@@ -6,7 +6,7 @@
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/13 16:13:00 by javgonza          #+#    #+#             */
-/*   Updated: 2021/10/05 11:50:49 by javgonza         ###   ########.fr       */
+/*   Updated: 2021/10/10 11:25:48 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ static char	*find_var_end(char *var_start)
 	return (var_end - 1);
 }
 
-static int	check_dollar_can_be_printed(char *var_name, char *var_start, int is_inside_dquote)
+static int	check_dollar_can_be_printed(char *var_name, char *var_start,
+			int is_inside_dquote)
 {
 	int	can_be_printed;
 
@@ -45,7 +46,8 @@ static char	*print_dollar(char *string, size_t *read_chars)
 	return (new_val);
 }
 
-static char	*substitute_var_in_string(char *string, char *var_start, size_t *read_chars, int is_inside_dquote)
+static char	*substitute_var_in_string(char *string, char *var_start,
+			size_t *read_chars, int is_inside_dquote)
 {
 	char			*var_end;
 	t_env_variable	*env_var;
@@ -79,20 +81,22 @@ void	expand_variables(t_token *token)
 	char			*new_val;
 	char			*var_start;
 	size_t			read_chars;
-	int				is_inside_dquote;
+	int				inside_dquote;
 
 	read_chars = 0;
-	is_inside_dquote = 0;
+	inside_dquote = 0;
 	while (1)
 	{
-		var_start = find_first_var(token->value + read_chars, &is_inside_dquote);
+		var_start = find_first_var(token->value + read_chars, &inside_dquote);
 		if (var_start == NULL)
 			return ;
 		if (*(var_start + 1) == '?')
 			new_val = expand_error_var(token->value, var_start);
 		else
-			new_val = substitute_var_in_string(token->value, var_start, &read_chars, is_inside_dquote);
+			new_val = substitute_var_in_string(token->value, var_start,
+					&read_chars, inside_dquote);
 		free(token->value);
 		token->value = new_val;
+		token->type |= TOKEN_TYPE_VARIABLE;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 10:06:49 by javgonza          #+#    #+#             */
-/*   Updated: 2021/10/07 10:01:41 by javgonza         ###   ########.fr       */
+/*   Updated: 2021/10/10 12:02:32 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	ctrl_bar(int a)
 	}
 }
 
-void	wait_loop()
+void	wait_loop(void)
 {
 	char	*string;
 
@@ -59,15 +59,12 @@ void	wait_loop()
 	{
 		string = readline("🐙->");
 		if (string == NULL)
-		{
 			exit(0);
-		}
 		add_history(string);
 		g_minishell_data.executing_command = 1;
 		execute(string);
 		g_minishell_data.executing_command = 0;
 		free(string);
-//		system("leaks minishell");
 	}
 }
 

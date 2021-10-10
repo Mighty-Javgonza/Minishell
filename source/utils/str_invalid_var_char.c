@@ -1,25 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_env.c                                      :+:      :+:    :+:   */
+/*   stralnum.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/24 07:20:39 by javgonza          #+#    #+#             */
-/*   Updated: 2021/10/10 11:20:13 by javgonza         ###   ########.fr       */
+/*   Created: 2021/10/08 15:55:37 by javgonza          #+#    #+#             */
+/*   Updated: 2021/10/10 12:01:22 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "command_executor.h"
-#include <stdio.h>
-#include <unistd.h>
-#include <stdlib.h>
+#include "utils.h"
 #include "../../libft/incs/libft.h"
-#include "../env_variables/env_variables.h"
-#include "../utils/utils.h"
 
-void	builtin_env(char **args)
+char	*str_invalid_var_char(char *str)
 {
-	(void)args;
-	print_env_vars();
+	size_t	i;
+
+	i = 0;
+	while (str[i] != '=' && str[i] != '\0')
+	{
+		if (!(ft_isalnum(str[i]) || str[i] == '_'))
+			return (&str[i]);
+		i++;
+	}
+	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/13 10:59:12 by javgonza          #+#    #+#             */
-/*   Updated: 2021/09/24 08:31:13 by javgonza         ###   ########.fr       */
+/*   Updated: 2021/10/10 11:20:24 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,15 +61,17 @@ void	add_expansion_to_reader(t_token_reader *tr, t_token *token)
 	expand_variables(&new_token);
 	expand_quotes(&new_token);
 	expand_escape_chars(&new_token);
-	if (new_token.value[0] == '|')
+	if (new_token.type == TOKEN_TYPE_VARIABLE)
+		new_token.type = TOKEN_TYPE_NORMAL;
+	else if (streq(new_token.value, "|"))
 		new_token.type = TOKEN_TYPE_PIPE;
-	else if (new_token.value[0] == '>' && new_token.value[1] == '>')
+	else if (streq(new_token.value, ">>"))
 		new_token.type = TOKEN_TYPE_REDIRECT_OUTPUT_APPEND;
-	else if (new_token.value[0] == '<' && new_token.value[1] == '<')
+	else if (streq(new_token.value, "<<"))
 		new_token.type = TOKEN_TYPE_REDIRECT_INPUT_DELIMITER;
-	else if (new_token.value[0] == '>')
+	else if (streq(new_token.value, ">"))
 		new_token.type = TOKEN_TYPE_REDIRECT_OUTPUT;
-	else if (new_token.value[0] == '<')
+	else if (streq(new_token.value, "<"))
 		new_token.type = TOKEN_TYPE_REDIRECT_INPUT;
 	else
 		new_token.type = TOKEN_TYPE_NORMAL;
