@@ -6,7 +6,7 @@
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 12:23:07 by javgonza          #+#    #+#             */
-/*   Updated: 2021/10/08 09:09:37 by javgonza         ###   ########.fr       */
+/*   Updated: 2021/10/08 11:46:23 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static size_t	count_env()
 	i = 0;
 	while (i < g_minishell_data.default_env_var_count)
 	{
-		if (var[i].is_local == 0)
+		if (var[i].value != NULL && var[i].is_local == 0)
 			count++;
 		i++;
 	}
@@ -31,7 +31,7 @@ static size_t	count_env()
 	var = g_minishell_data.extra_variables;
 	while (i < g_minishell_data.extra_variables_size)
 	{
-		if (var[i].is_local == 0)	
+		if (var[i].value != NULL && var[i].is_local == 0)	
 			count++;
 		i++;
 	}
@@ -43,13 +43,18 @@ static void	copy_extra_variables(char **env)
 {
 	t_env_variable	*var;
 	size_t			i;
+	size_t			loaded_vars;
 
 	i = 0;
+	loaded_vars = 0;
 	var = g_minishell_data.extra_variables;
 	while (i < g_minishell_data.extra_variables_size)
 	{
 		if (var[i].is_local == 0 && var[i].value != NULL)
-			env[i] = envvar_to_str(&var[i]);
+		{
+			env[loaded_vars] = envvar_to_str(&var[i]);
+			loaded_vars++;
+		}
 		i++;
 	}
 }
@@ -58,13 +63,18 @@ static void	copy_default_variables(char **env)
 {
 	t_env_variable	*var;
 	size_t			i;
+	size_t			loaded_vars;
 
 	i = 0;
+	loaded_vars = 0;
 	var = (t_env_variable *)&g_minishell_data;
 	while (i < g_minishell_data.default_env_var_count)
 	{
 		if (var[i].is_local == 0 && var[i].value != NULL)
-			env[i + g_minishell_data.extra_variables_size] = envvar_to_str(&var[i]);
+		{
+			env[loaded_vars + g_minishell_data.extra_variables_size] = envvar_to_str(&var[i]);
+			loaded_vars++;
+		}
 		i++;
 	}
 }

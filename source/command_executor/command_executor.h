@@ -6,7 +6,7 @@
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 10:49:32 by javgonza          #+#    #+#             */
-/*   Updated: 2021/10/07 11:15:23 by javgonza         ###   ########.fr       */
+/*   Updated: 2021/10/08 16:33:40 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # define ERROR_COMMAND_NOT_FOUND 127
 # define ERROR_NO_SUCH_FILE_OR_DIRECTORY 1
 # define ERROR_IS_A_DIRECTORY 126
+# define ERROR_SEGFAULT 11
 
 typedef struct s_command
 {
@@ -82,12 +83,11 @@ void			read_until_line(int out_fd, char *limit);
 void			destroy_sentence(t_sentence *sentence);
 void			destroy_command(t_command *command);
 void			open_command_pipe(t_sentence *sentence, size_t i);
-void			open_command_out_redirection(t_sentence *sentence, size_t i);
-void			open_command_out_append_redirection(t_sentence *sentence,
-					size_t i);
+void			open_command_out_redirection(t_command *command);
+void			open_command_out_append_redirection(t_command *command);
 void			open_command_in_delimiter_redirection(t_sentence *sentence,
 					size_t i);
-void			open_command_in_redirection(t_sentence *sentence, size_t i);
+void			open_command_in_redirection(t_command *command);
 
 static const	t_named_builtin
 				g_builtins[BUILTIN_COUNT] = {

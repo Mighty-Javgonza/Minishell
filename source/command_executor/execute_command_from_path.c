@@ -6,7 +6,7 @@
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 12:37:27 by javgonza          #+#    #+#             */
-/*   Updated: 2021/10/07 11:20:28 by javgonza         ###   ########.fr       */
+/*   Updated: 2021/10/08 12:07:35 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ int	execute_command_from_path(char *command_path, char **args, char **env)
 	if (pid == 0)
 	{
 		error_code = execve(command_path, args, env);
+		perror(MINISHELL_PROMPT);
 		exit(error_code);
 	}
 	else

@@ -6,12 +6,13 @@
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 11:21:55 by javgonza          #+#    #+#             */
-/*   Updated: 2021/10/07 08:51:25 by javgonza         ###   ########.fr       */
+/*   Updated: 2021/10/08 15:55:15 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env_variables.h"
 #include "../utils/utils.h"
+#include "../command_executor/command_executor.h"
 
 //TODO: Hacer todas las variables default
 
@@ -33,6 +34,11 @@ void	load_env_variable(char *var)
 
 	if (var == NULL || *var == '\0')
 		return ;
+	if (ft_isdigit(var[0]))
+	{
+		printf(MINISHELL_PROMPT"no es un identificador válido\n");
+		return ;
+	}
 	split = ft_split(var, '=');
 	if (split[1] == NULL)
 	{

@@ -1,30 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   zz_temp_test.c                                     :+:      :+:    :+:   */
+/*   stralnum.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/09 10:49:32 by javgonza          #+#    #+#             */
-/*   Updated: 2021/10/10 09:57:40 by javgonza         ###   ########.fr       */
+/*   Created: 2021/10/08 15:55:37 by javgonza          #+#    #+#             */
+/*   Updated: 2021/10/08 16:05:55 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../tests.h"
-#include <readline/readline.h>
+#include "utils.h"
+#include "../../libft/incs/libft.h"
 
-int	main()
+char	*str_valid_var_char(char *str)
 {
-	t_token_reader	tr;
-	t_token_reader	exp;
-	t_command		command;
-
-	tr = read_tokens("vim hola");
-	exp = expand_tokens(&tr);
-	command = init_command();
-	command.tr = get_tokens_of_command(&exp, 0);
-	set_redirect_names(&command);
-	if (command.in_name != NULL)
-		return (-1);
-	return (0);
+	size_t	i;
+	
+	i = 0;
+	while (str[i] != '\0')
+	{
+		if (ft_isalnum(str[i]) || str[i] == '_')
+			return (&str[i]);
+		i++;
+	}
+	return (NULL);
 }

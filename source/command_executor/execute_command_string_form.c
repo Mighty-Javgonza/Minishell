@@ -6,7 +6,7 @@
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 11:07:54 by javgonza          #+#    #+#             */
-/*   Updated: 2021/10/08 09:08:13 by javgonza         ###   ########.fr       */
+/*   Updated: 2021/10/10 10:14:00 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,10 @@ static void	print_error_message(char *command)
 		printf(MINISHELL_PROMPT"El comando %s no existe\n", command);
 	else if (g_minishell_data.error_code == ERROR_IS_A_DIRECTORY)
 		printf(MINISHELL_PROMPT"%s es un directorio\n", command);
-	else if (!g_minishell_data.cancelling_command)
-		printf(MINISHELL_PROMPT"Comando falla\n");
+	else if (g_minishell_data.error_code == ERROR_SEGFAULT)
+		printf(MINISHELL_PROMPT"Segmentation fault\n");
+//	else if (!g_minishell_data.cancelling_command)
+//		printf(MINISHELL_PROMPT"Comando falla\n");
 }
 
 int	execute_command_string_form(char *command, char **args)
@@ -77,10 +79,11 @@ int	execute_command_string_form(char *command, char **args)
 	}
 	executed = 0;
 	env = env_vars_to_arr();
-	executed = execute_command_from_path(command, args, env);
-	if (executed == 0)
+	if (ft_strncmp(command, "./", 2) == 0)
+		executed = execute_command_from_path(command, args, env);
+	else
 		try_command_on_all_paths(command, args, &executed, env);
-	if (executed == 0)
+	if (g_minishell_data.error_code != 0)
 		print_error_message(command);
 	ft_freearray(env);
 	return (executed);
