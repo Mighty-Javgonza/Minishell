@@ -6,7 +6,7 @@
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 11:21:55 by javgonza          #+#    #+#             */
-/*   Updated: 2021/10/10 11:54:23 by javgonza         ###   ########.fr       */
+/*   Updated: 2021/10/11 16:19:37 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,14 @@
 
 //TODO: Hacer todas las variables default
 
-static void	set_def_var(char **split)
+static void	set_def_var(t_env_var_list *env_vars, char **split)
 {
-	set_term_program(split[0], split[1]);
-	set_term(split[0], split[1]);
-	set_shell(split[0], split[1]);
-	set_path(split[0], split[1]);
-	set_home(split[0], split[1]);
-	set_pwd(split[0], split[1]);
+	set_term_program(env_vars, split[0], split[1]);
+	set_term(env_vars, split[0], split[1]);
+	set_shell(env_vars, split[0], split[1]);
+	set_path(env_vars, split[0], split[1]);
+	set_home(env_vars, split[0], split[1]);
+	set_pwd(env_vars, split[0], split[1]);
 }
 
 static void	set_split_to_empty_var(char ***split)
@@ -38,18 +38,19 @@ static void	set_split_to_empty_var(char ***split)
 	(*split)[2] = NULL;
 }
 
-static void	load_as_extra_variable(char **split, char *var)
+static void	load_as_extra_variable(t_env_var_list *env_vars, char **split,
+			char *var)
 {
 	t_env_variable	*existing_var;
 
-	existing_var = find_extra_var(split[0]);
+	existing_var = find_extra_var(env_vars, split[0]);
 	if (existing_var == NULL)
-		load_extra_variable(var);
+		load_extra_variable(env_vars, var);
 	else
-		set_variable(split[0], split[1]);
+		set_variable(env_vars, split[0], split[1]);
 }
 
-void	load_env_variable(char *var)
+void	load_env_variable(t_env_var_list *env_vars, char *var)
 {
 	char			**split;
 	t_env_variable	*existing_var;
@@ -64,9 +65,9 @@ void	load_env_variable(char *var)
 	split = ft_split(var, '=');
 	if (split[1] == NULL)
 		set_split_to_empty_var(&split);
-	set_def_var(split);
-	existing_var = find_default_var(split[0]);
+	set_def_var(env_vars, split);
+	existing_var = find_default_var(env_vars, split[0]);
 	if (existing_var == NULL)
-		load_as_extra_variable(split, var);
+		load_as_extra_variable(env_vars, split, var);
 	ft_freearray(split);
 }

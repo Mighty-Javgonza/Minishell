@@ -6,7 +6,7 @@
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 10:49:32 by javgonza          #+#    #+#             */
-/*   Updated: 2021/09/15 10:24:24 by javgonza         ###   ########.fr       */
+/*   Updated: 2021/10/11 11:49:45 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int main()
 
 	tr = init_token_reader();
 	tr = read_tokens("cat hola amigo | si turut");
-	exp = expand_tokens(&tr);
+	exp = expand_tokens(NULL, &tr);
 	sentence = parse_sentence(&exp);
 	if (sentence.command_count != 2)
 		return (-1);

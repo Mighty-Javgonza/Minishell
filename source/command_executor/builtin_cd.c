@@ -6,7 +6,7 @@
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 07:14:04 by javgonza          #+#    #+#             */
-/*   Updated: 2021/10/10 11:27:40 by javgonza         ###   ########.fr       */
+/*   Updated: 2021/10/10 13:41:48 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,25 +25,25 @@ static void	print_error(char **args)
 		printf("cd: Home directory not set\n");
 }
 
-void	builtin_cd(char **args)
+void	builtin_cd(char **args, t_env_var_list *env_vars)
 {
 	int		error;
 	char	path[10000];
 
 	if (args[1] == NULL)
 	{
-		error = chdir(g_minishell_data.home.value);
+		error = chdir(env_vars->home.value);
 		if (error == 0)
-			set_variable("PWD", g_minishell_data.home.value);
+			set_variable(env_vars, "PWD", env_vars->home.value);
 	}
 	else
 	{
 		error = chdir(args[1]);
 		if (error == 0)
 		{
-			set_variable("OLDPWD", g_minishell_data.pwd.value);
+			set_variable(env_vars, "OLDPWD", env_vars->pwd.value);
 			getcwd(path, 10000);
-			set_variable("PWD", path);
+			set_variable(env_vars, "PWD", path);
 		}
 	}
 	if (error != 0)

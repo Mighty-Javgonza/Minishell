@@ -6,7 +6,7 @@
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 10:49:32 by javgonza          #+#    #+#             */
-/*   Updated: 2021/09/28 11:24:02 by javgonza         ###   ########.fr       */
+/*   Updated: 2021/10/11 11:48:29 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int main()
 
 	tr = init_token_reader();
 	tr = read_tokens("cat hola amigo | si");
-	exp = expand_tokens(&tr);
+	exp = expand_tokens(NULL, &tr);
 	command = init_command();
 	command.tr = get_tokens_of_command(&exp, 0);
  printf("%zu\n", command.tr.token_count);

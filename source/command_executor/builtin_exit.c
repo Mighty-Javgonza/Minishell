@@ -6,7 +6,7 @@
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 07:19:40 by javgonza          #+#    #+#             */
-/*   Updated: 2021/10/10 11:20:14 by javgonza         ###   ########.fr       */
+/*   Updated: 2021/10/10 12:35:32 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,9 @@
 #include "../env_variables/env_variables.h"
 #include "../utils/utils.h"
 
-void	builtin_exit(char **args)
+void	builtin_exit(char **args, t_env_var_list *env_vars)
 {
+	(void)env_vars;
 	(void)args;
 	exit(0);
 }

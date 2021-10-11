@@ -6,7 +6,7 @@
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 10:49:32 by javgonza          #+#    #+#             */
-/*   Updated: 2021/10/03 08:39:28 by javgonza         ###   ########.fr       */
+/*   Updated: 2021/10/11 11:34:03 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,13 @@ int main()
 {
 	char	*args[2];
 	int		res;
+	t_env_var_list	env_vars;
 
-	init_minishell_data();
-	load_env_variable("PATH=path_invalido:./tests/test_programs/");
+	env_vars = init_env_var_list();
+	load_env_variable(&env_vars, "PATH=path_invalido:./tests/test_programs/");
 	args[0] = "hello_world.out";
 	args[1] = NULL;
-	res = execute_command_string_form("hello_world.out", args);
+	res = execute_command_string_form("hello_world.out", args, &env_vars);
 	if (res != 1)
 		return (-1);
 	return (0);

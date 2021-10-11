@@ -6,7 +6,7 @@
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/10 10:19:40 by javgonza          #+#    #+#             */
-/*   Updated: 2021/10/10 11:20:35 by javgonza         ###   ########.fr       */
+/*   Updated: 2021/10/11 09:38:28 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,5 +18,5 @@ int	is_charset(char c, char *set)
 	char	*place_in_set;
 
 	place_in_set = ft_strchr(set, c);
-	return (place_in_set != NULL);
+	return (place_in_set != NULL && *place_in_set != '\0');
 }

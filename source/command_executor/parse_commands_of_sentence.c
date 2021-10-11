@@ -6,7 +6,7 @@
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 11:27:08 by javgonza          #+#    #+#             */
-/*   Updated: 2021/10/10 11:20:20 by javgonza         ###   ########.fr       */
+/*   Updated: 2021/10/11 16:03:48 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	add_command(t_sentence *sentence, t_command *command)
 	free(old_commands);
 }
 
-void	parse_commands_of_sentence(t_sentence *sentence, t_token_reader *tr)
+int	parse_commands_of_sentence(t_sentence *sentence, t_token_reader *tr)
 {
 	t_command		command;
 	size_t			tokens_read;
@@ -37,7 +37,7 @@ void	parse_commands_of_sentence(t_sentence *sentence, t_token_reader *tr)
 	command.tr = get_tokens_of_command(tr, 0);
 	set_redirect_type(&command);
 	set_redirect_names(&command);
-	while (command.tr.token_count > 0 && tokens_read < tr->token_count)
+	while (tokens_read < tr->token_count)
 	{
 		tokens_read += command.tr.token_count;
 		add_command(sentence, &command);
@@ -45,8 +45,11 @@ void	parse_commands_of_sentence(t_sentence *sentence, t_token_reader *tr)
 		{
 			command = init_command();
 			command.tr = get_tokens_of_command(tr, tokens_read);
+			if (command.tr.token_count == 0)
+				return (ERROR_IN_PARSE);
 			set_redirect_type(&command);
 			set_redirect_names(&command);
 		}
 	}
+	return (0);
 }

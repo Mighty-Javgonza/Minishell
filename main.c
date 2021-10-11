@@ -6,7 +6,7 @@
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 10:06:49 by javgonza          #+#    #+#             */
-/*   Updated: 2021/10/10 12:02:32 by javgonza         ###   ########.fr       */
+/*   Updated: 2021/10/11 09:03:25 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	ctrl_bar(int a)
 	}
 }
 
-void	wait_loop(void)
+void	wait_loop(t_env_var_list *env_vars)
 {
 	char	*string;
 
@@ -62,7 +62,7 @@ void	wait_loop(void)
 			exit(0);
 		add_history(string);
 		g_minishell_data.executing_command = 1;
-		execute(string);
+		execute(string, env_vars);
 		g_minishell_data.executing_command = 0;
 		free(string);
 	}
@@ -71,14 +71,17 @@ void	wait_loop(void)
 int	main(int argc, char **argv, char **env)
 {
 	struct sigaction	action;
+	t_env_var_list		*env_vars;
 
 	action.sa_handler = &ctrl_c;
 	(void)argc;
 	(void)argv;
 	sigaction(SIGINT, &action, NULL);
 	signal(SIGQUIT, ctrl_bar);
+	env_vars = malloc(sizeof(*env_vars));
+	*env_vars = init_env_var_list();
 	init_minishell_data();
-	copy_env_variables(env);
-	increment_shell_level();
-	wait_loop();
+	copy_env_variables(env_vars, env);
+	increment_shell_level(env_vars);
+	wait_loop(env_vars);
 }

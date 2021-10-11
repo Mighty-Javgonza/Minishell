@@ -6,7 +6,7 @@
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 10:49:32 by javgonza          #+#    #+#             */
-/*   Updated: 2021/10/10 11:14:50 by javgonza         ###   ########.fr       */
+/*   Updated: 2021/10/11 12:05:03 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,12 @@ int	main()
 {
 	t_token_reader	tr;
 	t_token_reader	exp;
+	t_token_reader	command_tokens;
 
-	init_minishell_data();
-	load_env_variable("my_var='|'");
-	export_var("my_var");
-	tr = read_tokens("$my_var");
-	exp = expand_tokens(&tr);
-	if (exp.tokens[0].type != TOKEN_TYPE_NORMAL)
+	tr = read_tokens("echo | |");
+	exp = expand_tokens(NULL, &tr);
+	command_tokens = get_tokens_of_command(&exp, 2);
+	if (command_tokens.token_count != 0)
 		return (-1);
 	return (0);
 }

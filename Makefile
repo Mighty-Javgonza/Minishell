@@ -26,7 +26,7 @@ ECHO = echo $(PROJECT_ADVISOR)
 #Delete this if libft is not going to be used
 LIBFT = libft/libft.a
 
-CC = gcc -g
+CC = gcc
 COMP_FLAGS = -Wall -Wextra -Werror
 COMPILER = $(CC) $(COMP_FLAGS) -D PROJECT_DIR=\"$(PWD)\"
 

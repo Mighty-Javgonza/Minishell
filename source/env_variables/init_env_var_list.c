@@ -1,30 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   zz_temp_test.c                                     :+:      :+:    :+:   */
+/*   init_env_var_list.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/09 10:49:32 by javgonza          #+#    #+#             */
-/*   Updated: 2021/10/11 11:50:23 by javgonza         ###   ########.fr       */
+/*   Created: 2021/10/10 13:25:39 by javgonza          #+#    #+#             */
+/*   Updated: 2021/10/11 16:19:25 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../tests.h"
-#include <readline/readline.h>
+#include "env_variables.h"
 
-int main()
+t_env_var_list	init_env_var_list(void)
 {
-	t_token_reader	tr;
-	t_token_reader	exp;
-	t_sentence		sentence;
+	t_env_var_list	rvalue;
 
-	tr = init_token_reader();
-	tr = read_tokens("cat hola amigo | si turut | wc");
-	exp = expand_tokens(NULL, &tr);
-	sentence = parse_sentence(&exp);
-	open_pipes(&sentence);
-	if (sentence.commands[0].output_fd == 1)
-		return (-1);
-	return (0);
+	ft_memset(&rvalue, 0, sizeof(rvalue));
+	rvalue.extra_variables = malloc(
+			sizeof(*rvalue.extra_variables));
+	rvalue.extra_variables->name = NULL;
+	rvalue.extra_variables_size = 0;
+	rvalue.default_env_var_count = 6;
+	return (rvalue);
 }

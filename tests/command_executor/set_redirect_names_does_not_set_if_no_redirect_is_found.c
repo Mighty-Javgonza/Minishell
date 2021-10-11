@@ -6,7 +6,7 @@
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 10:49:32 by javgonza          #+#    #+#             */
-/*   Updated: 2021/10/10 09:57:40 by javgonza         ###   ########.fr       */
+/*   Updated: 2021/10/11 11:50:49 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	main()
 	t_command		command;
 
 	tr = read_tokens("vim hola");
-	exp = expand_tokens(&tr);
+	exp = expand_tokens(NULL, &tr);
 	command = init_command();
 	command.tr = get_tokens_of_command(&exp, 0);
 	set_redirect_names(&command);

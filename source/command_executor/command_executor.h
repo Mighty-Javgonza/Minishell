@@ -6,7 +6,7 @@
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 10:49:32 by javgonza          #+#    #+#             */
-/*   Updated: 2021/10/10 11:20:15 by javgonza         ###   ########.fr       */
+/*   Updated: 2021/10/11 16:00:28 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # define MINISHELL_PROMPT "minishell dice:"
 
 # include "../command_interpreter/command_interpreter.h"
+# include "../env_variables/env_variables.h"
 
 # define OUTPUT_REDIRS (0b1100)
 # define INPUT_REDIRS (0b10010)
@@ -24,6 +25,7 @@
 # define ERROR_NO_SUCH_FILE_OR_DIRECTORY 1
 # define ERROR_IS_A_DIRECTORY 126
 # define ERROR_SEGFAULT 11
+# define ERROR_IN_PARSE 258
 
 typedef struct s_command
 {
@@ -42,7 +44,7 @@ typedef struct s_sentence
 	size_t		command_count;
 }				t_sentence;
 
-typedef void	(*t_builtin)(char **args);
+typedef void	(*t_builtin)(char **args, t_env_var_list *envvars);
 
 typedef struct s_named_builtin
 {
@@ -52,7 +54,6 @@ typedef struct s_named_builtin
 
 # define BUILTIN_COUNT 8
 
-int				execute_command_string_form(char *command, char **args);
 int				execute_command_from_path(char *command_path, char **args,
 					char **env);
 int				try_to_execute_command_on_folder(char *path, char *command,
@@ -60,25 +61,28 @@ int				try_to_execute_command_on_folder(char *path, char *command,
 char			**get_args_from_tokens(t_token_reader *tr, size_t start);
 t_command		init_command(void);
 void			get_command_from_tokens(t_command *command);
-int				execute_command(t_command *command);
+int				execute_command_string_form(char *command, char **args,
+					t_env_var_list *env_vars);
+int				execute_command(t_command *command, t_env_var_list *env_vars);
 t_token_reader	get_tokens_of_command(t_token_reader *exp, size_t start_token);
 t_sentence		init_sentence(void);
 t_sentence		parse_sentence(t_token_reader *tr);
 void			open_pipes(t_sentence *sentence);
-int				execute_sentence(t_sentence *sentence);
-void			parse_commands_of_sentence(t_sentence *sentence,
+int				execute_sentence(t_sentence *sentence,
+					t_env_var_list *env_vars);
+int				parse_commands_of_sentence(t_sentence *sentence,
 					t_token_reader *tr);
-void			execute(char *command);
+void			execute(char *command, t_env_var_list *env_vars);
 void			set_redirect_type(t_command *command);
 void			set_redirect_names(t_command *command);
-void			builtin_authors(char **args);
-void			builtin_echo(char **args);
-void			builtin_exit(char **args);
-void			builtin_export(char **vars_to_export);
-void			builtin_cd(char **args);
-void			builtin_env(char **args);
-void			builtin_pwd(char **args);
-void			builtin_unset(char **args);
+void			builtin_authors(char **args, t_env_var_list *env_vars);
+void			builtin_echo(char **args, t_env_var_list *env_vars);
+void			builtin_exit(char **args, t_env_var_list *env_vars);
+void			builtin_export(char **vars_to_export, t_env_var_list *env_vars);
+void			builtin_cd(char **args, t_env_var_list *env_vars);
+void			builtin_env(char **args, t_env_var_list *env_vars);
+void			builtin_pwd(char **args, t_env_var_list *env_vars);
+void			builtin_unset(char **args, t_env_var_list *env_vars);
 void			read_until_line(int out_fd, char *limit);
 void			destroy_sentence(t_sentence *sentence);
 void			destroy_command(t_command *command);

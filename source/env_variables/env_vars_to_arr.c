@@ -6,30 +6,30 @@
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 12:23:07 by javgonza          #+#    #+#             */
-/*   Updated: 2021/10/10 11:36:05 by javgonza         ###   ########.fr       */
+/*   Updated: 2021/10/11 16:19:07 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env_variables.h"
 
-static size_t	count_env(void)
+static size_t	count_env(t_env_var_list *env_vars)
 {
 	size_t			i;
 	size_t			count;
 	t_env_variable	*var;
 
 	count = 0;
-	var = (t_env_variable *)&g_minishell_data;
+	var = (t_env_variable *)env_vars;
 	i = 0;
-	while (i < g_minishell_data.default_env_var_count)
+	while (i < env_vars->default_env_var_count)
 	{
 		if (var[i].value != NULL && var[i].is_local == 0)
 			count++;
 		i++;
 	}
 	i = 0;
-	var = g_minishell_data.extra_variables;
-	while (i < g_minishell_data.extra_variables_size)
+	var = env_vars->extra_variables;
+	while (i < env_vars->extra_variables_size)
 	{
 		if (var[i].value != NULL && var[i].is_local == 0)
 			count++;
@@ -38,7 +38,7 @@ static size_t	count_env(void)
 	return (count);
 }
 
-static void	copy_extra_variables(char **env)
+static size_t	copy_extra_variables(t_env_var_list *env_vars, char **env)
 {
 	t_env_variable	*var;
 	size_t			i;
@@ -46,8 +46,28 @@ static void	copy_extra_variables(char **env)
 
 	i = 0;
 	loaded_vars = 0;
-	var = g_minishell_data.extra_variables;
-	while (i < g_minishell_data.extra_variables_size)
+	var = env_vars->extra_variables;
+	while (i < env_vars->extra_variables_size)
+	{
+		if (var[i].is_local == 0 && var[i].value != NULL)
+		{
+			env[loaded_vars] = envvar_to_str(&var[i]);
+			loaded_vars++;
+		}
+		i++;
+	}
+	return (loaded_vars);
+}
+
+static void	copy_default_variables(t_env_var_list *env_vars, char **env,
+			size_t loaded_vars)
+{
+	t_env_variable	*var;
+	size_t			i;
+
+	i = 0;
+	var = (t_env_variable *)env_vars;
+	while (i < env_vars->default_env_var_count)
 	{
 		if (var[i].is_local == 0 && var[i].value != NULL)
 		{
@@ -58,37 +78,18 @@ static void	copy_extra_variables(char **env)
 	}
 }
 
-static void	copy_default_variables(char **env)
-{
-	t_env_variable	*var;
-	size_t			i;
-	size_t			loaded_vars;
-	size_t			index;
-
-	i = 0;
-	loaded_vars = 0;
-	var = (t_env_variable *)&g_minishell_data;
-	while (i < g_minishell_data.default_env_var_count)
-	{
-		if (var[i].is_local == 0 && var[i].value != NULL)
-		{
-			index = loaded_vars + g_minishell_data.extra_variables_size;
-			env[index] = envvar_to_str(&var[i]);
-			loaded_vars++;
-		}
-		i++;
-	}
-}
-
-char	**env_vars_to_arr(void)
+char	**env_vars_to_arr(t_env_var_list *env_vars)
 {
 	size_t			size_of_env;
 	char			**env;
+	size_t			loaded_vars;
 
-	size_of_env = count_env();
+	if (env_vars == NULL)
+		return (NULL);
+	size_of_env = count_env(env_vars);
 	env = malloc(sizeof(*env) * (size_of_env + 1));
 	env[size_of_env] = NULL;
-	copy_extra_variables(env);
-	copy_default_variables(env);
+	loaded_vars = copy_extra_variables(env_vars, env);
+	copy_default_variables(env_vars, env, loaded_vars);
 	return (env);
 }

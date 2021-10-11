@@ -6,7 +6,7 @@
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/13 10:59:12 by javgonza          #+#    #+#             */
-/*   Updated: 2021/10/10 11:20:24 by javgonza         ###   ########.fr       */
+/*   Updated: 2021/10/11 16:05:41 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,14 +51,15 @@ static void	expand_quotes(t_token *token)
 	}
 }
 
-void	add_expansion_to_reader(t_token_reader *tr, t_token *token)
+void	add_expansion_to_reader(t_env_var_list *env_vars, t_token_reader *tr,
+			t_token *token)
 {
 	t_token	new_token;
 
 	new_token = init_token();
 	new_token.value = ft_strdup(token->value);
 	new_token.type = token->type;
-	expand_variables(&new_token);
+	expand_variables(env_vars, &new_token);
 	expand_quotes(&new_token);
 	expand_escape_chars(&new_token);
 	if (new_token.type == TOKEN_TYPE_VARIABLE)

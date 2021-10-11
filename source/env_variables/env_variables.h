@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/07 11:05:49 by javgonza          #+#    #+#             */
-/*   Updated: 2021/10/10 11:20:29 by javgonza         ###   ########.fr       */
+/*   Created: 2021/10/11 16:21:37 by javgonza          #+#    #+#             */
+/*   Updated: 2021/10/11 16:21:38 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ typedef struct s_env_variable
 	unsigned int	is_local : 1;
 }				t_env_variable;
 
-typedef struct s_minishell_data
+typedef struct s_env_var_list
 {
 	t_env_variable	term_program;
 	t_env_variable	term;
@@ -33,6 +33,10 @@ typedef struct s_minishell_data
 	size_t			default_env_var_count;
 	t_env_variable	*extra_variables;
 	size_t			extra_variables_size;
+}				t_env_var_list;
+
+typedef struct s_minishell_data
+{
 	int				error_code;
 	int				cancelling_command;
 	int				executing_command;
@@ -40,28 +44,32 @@ typedef struct s_minishell_data
 }				t_minishell_data;
 
 extern t_minishell_data	g_minishell_data;
-t_minishell_data		g_minishell_data;
 
 void				init_minishell_data(void);
-void				copy_env_variables(char **env);
-void				set_term_program(char *name, char *value);
-void				set_shell(char *name, char *value);
-void				set_term(char *name, char *value);
+t_env_var_list		init_env_var_list(void);
+void				copy_env_variables(t_env_var_list *env_vars, char **env);
+void				set_term(t_env_var_list *env_vars, char *name, char *value);
+void				set_term_program(t_env_var_list *env_vars, char *name,
+						char *value);
+void				set_shell(t_env_var_list *env_vars, char *name,
+						char *value);
 t_env_variable		str_to_env_var(char *var);
-void				load_extra_variable(char *new_var);
-void				print_env_vars(void);
+void				load_extra_variable(t_env_var_list *env_vars,
+						char *new_var);
+void				print_env_vars(t_env_var_list *env_vars);
 void				free_env_var_list(t_env_variable *old_vars);
-t_env_variable		*find_env_var(char *name);
-t_env_variable		*set_variable(char *name, char *value);
-t_env_variable		*find_default_var(char *name);
-t_env_variable		*find_extra_var(char *name);
-void				export_var(char *name);
-void				set_path(char *name, char *value);
-void				set_home(char *name, char *value);
-void				load_env_variable(char *var);
-void				set_pwd(char *name, char *value);
-char				**env_vars_to_arr(void);
+t_env_variable		*find_env_var(t_env_var_list *env_vars, char *name);
+t_env_variable		*set_variable(t_env_var_list *env_vars, char *name,
+						char *value);
+t_env_variable		*find_default_var(t_env_var_list *env_vars, char *name);
+t_env_variable		*find_extra_var(t_env_var_list *env_var, char *name);
+void				export_var(t_env_var_list *env_vars, char *name);
+void				set_path(t_env_var_list *env_vars, char *name, char *value);
+void				set_home(t_env_var_list *env_vars, char *name, char *value);
+void				load_env_variable(t_env_var_list *env_vars, char *var);
+void				set_pwd(t_env_var_list *env_vars, char *name, char *value);
+char				**env_vars_to_arr(t_env_var_list *env_vars);
 char				*envvar_to_str(t_env_variable *envvar);
-void				increment_shell_level(void);
+void				increment_shell_level(t_env_var_list *env_vars);
 
 #endif

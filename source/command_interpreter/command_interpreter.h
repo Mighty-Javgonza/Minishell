@@ -6,7 +6,7 @@
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/10 09:54:33 by javgonza          #+#    #+#             */
-/*   Updated: 2021/10/10 11:20:25 by javgonza         ###   ########.fr       */
+/*   Updated: 2021/10/11 16:06:00 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # define TOKEN_SPECIAL_CHARS "|<>&"
 
 # include <stdlib.h>
+# include "../env_variables/env_variables.h"
 
 typedef struct s_token
 {
@@ -44,10 +45,11 @@ char			*get_token_end(char *token_start);
 t_token_reader	read_tokens(char *string);
 t_token_reader	init_token_reader(void);
 void			add_token(t_token_reader *tr, t_token token);
-t_token_reader	expand_tokens(t_token_reader *tr);
-void			add_expansion_to_reader(t_token_reader *tr, t_token *token);
+t_token_reader	expand_tokens(t_env_var_list *env_vars, t_token_reader *tr);
+void			add_expansion_to_reader(t_env_var_list *env_vars,
+					t_token_reader *tr, t_token *token);
 char			*get_first_escaped_char(char *string);
-void			expand_variables(t_token *token);
+void			expand_variables(t_env_var_list *env_vars, t_token *token);
 void			destroy_token(t_token *token);
 void			destroy_token_reader(t_token_reader *tr);
 char			*find_first_var(char *search_start, int *is_inside_dquote);

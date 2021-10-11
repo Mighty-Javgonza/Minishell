@@ -6,19 +6,19 @@
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 12:25:54 by javgonza          #+#    #+#             */
-/*   Updated: 2021/10/10 11:20:33 by javgonza         ###   ########.fr       */
+/*   Updated: 2021/10/10 13:31:54 by javgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env_variables.h"
 #include "../utils/utils.h"
 
-void	set_pwd(char *name, char *value)
+void	set_pwd(t_env_var_list *env_vars, char *name, char *value)
 {
 	if (streq(name, "PWD"))
 	{
-		g_minishell_data.pwd.value = ft_strdup(value);
-		g_minishell_data.pwd.name = ft_strdup("PWD");
-		g_minishell_data.pwd.is_local = 0;
+		env_vars->pwd.value = ft_strdup(value);
+		env_vars->pwd.name = ft_strdup("PWD");
+		env_vars->pwd.is_local = 0;
 	}
 }
