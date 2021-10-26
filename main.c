@@ -6,7 +6,7 @@
 /*   By: javgonza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 10:06:49 by javgonza          #+#    #+#             */
-/*   Updated: 2021/10/11 09:03:25 by javgonza         ###   ########.fr       */
+/*   Updated: 2021/10/25 19:07:57 by bazuara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #include <signal.h>
 #include <readline/readline.h>
 #include <readline/history.h>
-#include "/Users/javgonza/.brew/opt/readline/include/readline/readline.h"
 
 void	ctrl_c(int a)
 {
